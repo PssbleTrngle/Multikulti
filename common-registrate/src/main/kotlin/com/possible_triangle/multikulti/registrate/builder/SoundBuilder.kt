@@ -1,15 +1,13 @@
 package com.possible_triangle.multikulti.registrate.builder
 
-import com.possible_triangle.multikulti.registrate.platform.service.RegistrateProviders
 import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.builders.AbstractBuilder
 import com.tterrag.registrate.builders.BuilderCallback
-import io.github.fabricators_of_create.porting_lib.data.SoundDefinition
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.sounds.SoundEvent
 
-class SoundBuilder<TParent : Any>(
+abstract class SoundBuilder<TParent : Any>(
     owner: AbstractRegistrate<*>,
     parent: TParent,
     name: String,
@@ -22,22 +20,12 @@ class SoundBuilder<TParent : Any>(
     Registries.SOUND_EVENT
 ) {
 
-    init {
-        setData(RegistrateProviders.INSTANCE.sounds) { context, provider ->
-            val definition = SoundDefinition.definition()
-            subtitleKey?.let(definition::subtitle)
-            sounds.forEach {
-                definition.with(SoundDefinition.Sound.sound(it, SoundDefinition.SoundType.SOUND))
-            }
+    protected var subtitleKey: String? = null
+        private set
 
-            provider.register(context.get(), definition)
-        }
-    }
+    protected val sounds = hashSetOf<ResourceLocation>()
 
-    private var subtitleKey: String? = null
-    private val sounds = hashSetOf<ResourceLocation>()
-
-    fun lang(key: String, translation: String): SoundBuilder<TParent> = lang({ key }, translation)
+    abstract fun lang(key: String, translation: String): SoundBuilder<TParent>
 
     fun lang(translation: String): SoundBuilder<TParent> {
         if (subtitleKey == null) subtitleKey = "subtitle.$name"
