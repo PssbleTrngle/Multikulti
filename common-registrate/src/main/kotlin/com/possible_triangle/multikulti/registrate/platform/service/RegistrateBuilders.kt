@@ -1,6 +1,7 @@
 package com.possible_triangle.multikulti.registrate.platform.service
 
 import com.possible_triangle.multikulti.platform.Services
+import com.possible_triangle.multikulti.registrate.builder.PaintingBuilder
 import com.possible_triangle.multikulti.registrate.builder.ParticleBuilder
 import com.possible_triangle.multikulti.registrate.builder.SoundBuilder
 import com.tterrag.registrate.AbstractRegistrate
@@ -32,5 +33,12 @@ interface RegistrateBuilders {
         factory: () -> TType,
         provider: (sprites: SpriteSet) -> ParticleProvider<TOptions>,
     ): ParticleBuilder<TOptions, TType, TParent>
+
+    fun <TParent : Any> painting(
+        owner: AbstractRegistrate<*>,
+        parent: TParent,
+        name: String,
+        callback: BuilderCallback
+    ): PaintingBuilder<TParent>
 
 }

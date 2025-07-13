@@ -4,6 +4,7 @@ import com.possible_triangle.multikulti.registrate.platform.service.ForgeRegistr
 import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.providers.RegistrateProvider
 import net.minecraft.data.PackOutput
+import net.minecraft.sounds.SoundEvent
 import net.minecraftforge.common.data.ExistingFileHelper
 import net.minecraftforge.common.data.SoundDefinition
 import net.minecraftforge.common.data.SoundDefinitionsProvider
@@ -21,6 +22,6 @@ class RegistrateSoundsProvider(
         owner.genData(ForgeRegistrateBuilders.SOUNDS, this)
     }
 
-    public override fun add(sound: String, definition: SoundDefinition) = super.add(sound, definition)
+    public override fun add(sound: SoundEvent, definition: SoundDefinition) = super.add(sound, definition)
 
 }

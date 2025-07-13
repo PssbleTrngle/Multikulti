@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        mavenLocal()
         gradlePluginPortal()
         maven { url = uri("https://maven.minecraftforge.net/") }
         maven { url = uri("https://repo.spongepowered.org/repository/maven-public/") }
@@ -16,4 +17,5 @@ include(
     ":fabric-registrate",
     ":forge-core",
     ":forge-registrate",
+    ":forge-test-mod",
 )

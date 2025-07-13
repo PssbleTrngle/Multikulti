@@ -1,7 +1,7 @@
 val mc_version: String by extra
 
 plugins {
-    id("dev.architectury.loom") version ("1.7-SNAPSHOT")
+    id("dev.architectury.loom") version ("1.10-SNAPSHOT")
 }
 
 common {

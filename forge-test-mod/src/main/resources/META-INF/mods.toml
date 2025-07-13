@@ -1,14 +1,12 @@
-modLoader = "javafml"
-loaderVersion = "[47,)"
+modLoader = "kotlinforforge"
 license = 'https://github.com/${repository}/blob/1.20.x/LICENSE.txt'
-issueTrackerURL = "https://github.com/${repository}/issues"
+loaderVersion = "[4.3.0,)"
 
 [[mods]]
 modId = "${mod_id}"
 version = "${mod_version}"
 displayName = "${mod_name}"
 authors = "${mod_author}"
-description = '''Multiplatform Extensions for Registrate'''
 
 [[dependencies.${mod_id}]]
 modId = "forge"

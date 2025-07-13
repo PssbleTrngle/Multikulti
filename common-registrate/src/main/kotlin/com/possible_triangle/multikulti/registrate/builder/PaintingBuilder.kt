@@ -5,9 +5,11 @@ import com.tterrag.registrate.builders.AbstractBuilder
 import com.tterrag.registrate.builders.BuilderCallback
 import com.tterrag.registrate.providers.ProviderType
 import net.minecraft.core.registries.Registries
+import net.minecraft.tags.PaintingVariantTags
+import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.decoration.PaintingVariant
 
-class PaintingBuilder<TParent : Any>(
+abstract class PaintingBuilder<TParent : Any>(
     owner: AbstractRegistrate<*>,
     parent: TParent,
     name: String,
@@ -39,6 +41,10 @@ class PaintingBuilder<TParent : Any>(
             provider.add(context.id.toLanguageKey("painting", "author"), author)
         }
     }
+
+    fun placeable() = tag(PaintingVariantTags.PLACEABLE)
+
+    abstract fun tag(tag: TagKey<PaintingVariant>): PaintingBuilder<TParent>
 
     override fun createEntry() = PaintingVariant(width, height)
 
