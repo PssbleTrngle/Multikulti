@@ -13,8 +13,8 @@ forge {
 dependencies {
     modImplementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
 
-    modImplementation(project(":common-core"))
-    modImplementation(project(":common-registrate"))
+    //modImplementation(project(":common-core"))
+    //modImplementation(project(":common-registrate"))
     modImplementation(project(":forge-core"))
     modImplementation(project(":forge-registrate"))
 
@@ -23,5 +23,5 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    dependsOn(tasks.getByName("Data"))
+    //dependsOn(tasks.getByName("Data"))
 }
