@@ -1,11 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.possible_triangle.multikulti.mixin",
+  "package": "com.possible_triangle.multikulti.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "RecipeProviderMixin",
-    "RecipeBuilderMixin"
+    "FabricRecipeProviderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -15,7 +15,8 @@
   "environment": "*",
   "entrypoints": {},
   "mixins": [
-    "${mod_id}.mixins.json"
+    "${mod_id}.mixins.json",
+    "${mod_id}.fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16",

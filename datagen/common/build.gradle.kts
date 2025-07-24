@@ -11,4 +11,6 @@ common {
 dependencies {
     "minecraft"("com.mojang:minecraft:${mc_version}")
     "mappings"(loom.officialMojangMappings())
+
+    compileOnly("org.ow2.asm:asm-tree:9.5")
 }

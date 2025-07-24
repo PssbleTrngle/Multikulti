@@ -14,8 +14,8 @@ import net.minecraft.core.particles.ParticleType
 interface RegistrateBuilders {
 
     companion object {
-        @JvmStatic
-        val INSTANCE = Services.load(RegistrateBuilders::class)
+        @JvmField
+        val INSTANCE = Services.load(RegistrateBuilders::class.java)
     }
 
     fun <TParent : Any> sound(
