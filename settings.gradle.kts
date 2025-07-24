@@ -10,12 +10,13 @@ pluginManagement {
     }
 }
 
-include(
-    ":common-core",
-    ":common-registrate",
-    ":fabric-core",
-    ":fabric-registrate",
-    ":forge-core",
-    ":forge-registrate",
-    ":forge-test-mod",
-)
+fun module(name: String) {
+    listOf("common", "forge", "fabric").forEach { platform ->
+        include(":$name-$platform")
+        project(":$name-$platform").projectDir = file("$name/$platform")
+    }
+}
+
+module("datagen")
+module("registrate")
+include(":forge-test-mod")

@@ -1,3 +1,5 @@
+val mod_id: String by extra
+
 plugins {
     id("com.possible-triangle.gradle") version ("0.2.15")
 }
@@ -30,6 +32,11 @@ subprojects {
         repositories {
             mavenLocal()
         }
+    }
+
+    val module = project.projectDir.parentFile.name
+    mod {
+        id = "${mod_id}_${module}"
     }
 }
 
