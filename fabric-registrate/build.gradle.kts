@@ -2,7 +2,7 @@ val registrate_fabric_version: String by extra
 val mod_id: String by extra
 
 mod {
-    id = "$mod_id-registrate"
+    id = "${mod_id}_registrate"
 }
 
 fabric {

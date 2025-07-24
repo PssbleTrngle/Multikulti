@@ -4,7 +4,8 @@
   "package": "com.possible_triangle.multikulti.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "RecipeProviderMixin"
+    "RecipeProviderMixin",
+    "RecipeBuilderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

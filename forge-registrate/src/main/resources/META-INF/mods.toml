@@ -1,4 +1,4 @@
-modLoader = "javafml"
+modLoader = "lowcodefml"
 loaderVersion = "[47,)"
 license = 'https://github.com/${repository}/blob/1.20.x/LICENSE.txt'
 issueTrackerURL = "https://github.com/${repository}/issues"

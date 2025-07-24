@@ -2,7 +2,7 @@ val mod_id: String by extra
 val registrate_forge_version: String by extra
 
 mod {
-    id = "$mod_id-registrate"
+    id = "${mod_id}_registrate"
 }
 
 forge {
