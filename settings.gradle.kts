@@ -19,4 +19,4 @@ fun module(name: String) {
 
 module("datagen")
 module("registrate")
-include(":forge-test-mod")
+// include(":forge-test-mod")
