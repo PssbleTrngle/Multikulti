@@ -26,14 +26,14 @@ abstract class PaintingBuilder<TParent : Any>(
     private var width: Int = 16
 
     fun pixelSized(width: Int, height: Int = width) = apply {
-        check(height > 0) { "height must be positive" }
-        check(width > 0) { "width must be positive" }
+        check(height > 0) { "height must be positive, is $height" }
+        check(width > 0) { "width must be positive, is $width" }
 
         this.height = height
         this.width = width
     }
 
-    fun sized(width: Int, height: Int = width) = pixelSized(width / 16, height / 16)
+    fun sized(width: Int, height: Int = width) = pixelSized(width * 16, height * 16)
 
     fun lang(title: String, author: String) = apply {
         setData(ProviderType.LANG) { context, provider ->

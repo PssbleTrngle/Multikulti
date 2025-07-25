@@ -6,6 +6,8 @@ plugins {
 
 common {
     applyVanillaGradle = false
+
+    dependOn(project(":core-common"))
 }
 
 dependencies {

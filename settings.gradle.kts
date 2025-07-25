@@ -17,6 +17,7 @@ fun module(name: String) {
     }
 }
 
+module("core")
 module("datagen")
 module("registrate")
 // include(":forge-test-mod")

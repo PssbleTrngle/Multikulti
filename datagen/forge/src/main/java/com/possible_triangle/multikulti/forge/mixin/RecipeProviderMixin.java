@@ -2,7 +2,7 @@ package com.possible_triangle.multikulti.forge.mixin;
 
 import com.google.gson.JsonObject;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.possible_triangle.multikulti.platform.conditions.Conditional;
+import com.possible_triangle.multikulti.datagen.conditions.Conditional;
 import net.minecraft.data.recipes.RecipeProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

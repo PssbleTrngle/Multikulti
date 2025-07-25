@@ -7,7 +7,7 @@ import com.possible_triangle.multikulti.registrate.builder.SoundBuilder
 import com.possible_triangle.multikulti.registrate.platform.service.RegistrateBuilders
 import com.tterrag.registrate.AbstractRegistrate
 
-fun <T : AbstractRegistrate<T>> T.sound(name: String = getCurrentName()): SoundBuilder<T> {
+fun <T : AbstractRegistrate<out T>> T.sound(name: String = getCurrentName()): SoundBuilder<T> {
     return entry(name) { callback ->
         RegistrateBuilders.INSTANCE.sound(this, this, name, callback)
     }

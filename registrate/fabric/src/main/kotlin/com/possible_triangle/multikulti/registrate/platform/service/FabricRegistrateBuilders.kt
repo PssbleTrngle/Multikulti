@@ -21,12 +21,12 @@ class FabricRegistrateBuilders : RegistrateBuilders {
             RegistrateSoundsProvider(owner, context.output, context.helper)
         }
 
-        val PARTICLES: ProviderType<RegistrateParticleProvider> = ProviderType.register("sounds") { owner, context ->
+        val PARTICLES: ProviderType<RegistrateParticleProvider> = ProviderType.register("particles") { owner, context ->
             RegistrateParticleProvider(owner, context.output, context.helper)
         }
 
         val PAINTING_TAGS: ProviderType<RegistratePaintingTagsProvider> =
-            ProviderType.register("painting_tags") { owner, context ->
+            ProviderType.register("tags/painting") { owner, context ->
                 RegistratePaintingTagsProvider(owner, context.output, context.registriesLookup)
             }
     }

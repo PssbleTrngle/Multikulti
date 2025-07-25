@@ -7,7 +7,8 @@ fabric {
 }
 
 dependencies {
-    compileOnly(project(":datagen-fabric")) { isTransitive = false }
-
     modCompileOnly("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")
+
+    implementation(project(":core-common"))
+    modImplementation(project(":core-fabric"))
 }

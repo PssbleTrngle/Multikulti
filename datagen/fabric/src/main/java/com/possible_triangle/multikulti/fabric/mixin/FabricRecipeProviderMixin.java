@@ -2,7 +2,7 @@ package com.possible_triangle.multikulti.fabric.mixin;
 
 import com.google.gson.JsonObject;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.possible_triangle.multikulti.platform.conditions.Conditional;
+import com.possible_triangle.multikulti.datagen.conditions.Conditional;
 import java.util.List;
 import java.util.Set;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;

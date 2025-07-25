@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly("org.apache.logging.log4j:log4j-core:2.25.1")
+}

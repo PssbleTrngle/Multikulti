@@ -1,14 +1,7 @@
-import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
-
 val mod_id: String by extra
 
 plugins {
-    id("com.possible-triangle.gradle") version ("0.2.15")
-}
-
-val kotlin_version = getKotlinPluginVersion()
-mod {
-    includedLibraries.add("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    id("com.possible-triangle.gradle") version ("0.2.16")
 }
 
 withKotlin()

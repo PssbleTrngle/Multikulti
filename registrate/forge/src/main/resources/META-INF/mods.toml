@@ -11,15 +11,8 @@ authors = "${mod_author}"
 description = '''Multiplatform Extensions for Registrate'''
 
 [[dependencies.${mod_id}]]
-modId = "forge"
+modId = "multikulti_core"
 mandatory = true
-versionRange = "[47,)"
-ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.${mod_id}]]
-modId = "minecraft"
-mandatory = true
-versionRange = "[1.20.1,)"
+versionRange = "[${mod_version},)"
 ordering = "NONE"
 side = "BOTH"

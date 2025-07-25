@@ -11,3 +11,8 @@ forge {
 configure<MixinExtension> {
     config("${mod_id}_datagen.forge.mixins.json")
 }
+
+dependencies {
+    implementation(project(":core-common"))
+    modImplementation(project(":core-forge")) { isTransitive = false }
+}

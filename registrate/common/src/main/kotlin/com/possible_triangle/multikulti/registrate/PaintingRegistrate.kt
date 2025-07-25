@@ -7,7 +7,7 @@ import com.possible_triangle.multikulti.registrate.builder.PaintingBuilder
 import com.possible_triangle.multikulti.registrate.platform.service.RegistrateBuilders
 import com.tterrag.registrate.AbstractRegistrate
 
-fun <T : AbstractRegistrate<T>> T.painting(name: String = getCurrentName()): PaintingBuilder<T> {
+fun <T : AbstractRegistrate<out T>> T.painting(name: String = getCurrentName()): PaintingBuilder<T> {
     return entry(name) { callback ->
         RegistrateBuilders.INSTANCE.painting(this, this, name, callback)
     }
