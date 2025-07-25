@@ -6,7 +6,5 @@ fabric {
 
 dependencies {
     implementation(project(":core-common"))
-    modImplementation(project(":core-fabric"))
+    implementation(project(":core-fabric"))
 }
-
-evaluationDependsOn(project(":core-fabric").path)

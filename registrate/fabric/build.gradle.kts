@@ -10,7 +10,5 @@ dependencies {
     modCompileOnly("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")
 
     implementation(project(":core-common"))
-    modImplementation(project(":core-fabric"))
+    implementation(project(":core-fabric"))
 }
-
-evaluationDependsOn(project(":core-fabric").path)
