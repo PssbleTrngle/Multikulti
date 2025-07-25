@@ -2,7 +2,7 @@ import org.spongepowered.asm.gradle.plugins.MixinExtension
 
 val mod_id: String by extra
 
-forge {
+neoforge {
     enableMixins()
 
     dependOn(project(":datagen-common"))
@@ -14,5 +14,5 @@ configure<MixinExtension> {
 
 dependencies {
     implementation(project(":core-common"))
-    modImplementation(project(":core-forge")) { isTransitive = false }
+    modImplementation(project(":core-neoforge")) { isTransitive = false }
 }

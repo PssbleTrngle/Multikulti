@@ -11,7 +11,7 @@ pluginManagement {
 }
 
 fun module(name: String) {
-    listOf("common", "forge", "fabric").forEach { platform ->
+    listOf("common", "neoforge", "fabric").forEach { platform ->
         include(":$name-$platform")
         project(":$name-$platform").projectDir = file("$name/$platform")
     }
