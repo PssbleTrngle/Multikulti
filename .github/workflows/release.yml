@@ -36,5 +36,6 @@ jobs:
         with:
           arguments: build publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXUS_USER: ${{ secrets.NEXUS_USER }}
+          NEXUS_TOKEN: ${{ secrets.NEXUS_TOKEN }}
           CHANGELOG: ${{ github.event.release.body }}
