@@ -4,7 +4,7 @@ import com.possible_triangle.multikulti.platform.LOGGER
 import com.possible_triangle.multikulti.platform.dev
 
 private fun Any.warnNotConditional() {
-    LOGGER.dev("trying to add a condition to non-conditional {}", javaClass.simpleName)
+    LOGGER.dev("trying to access condition of a non-conditional {}", javaClass.name)
 }
 
 private val STUB = ConditionHolder()
@@ -26,7 +26,7 @@ interface Conditional {
 
         @JvmStatic
         fun <T : Any> with(value: T, conditions: Collection<Condition>): T = value.apply {
-            of(value).add(conditions)
+            if (conditions.isNotEmpty()) of(value).add(conditions)
         }
     }
 
