@@ -1,4 +1,4 @@
-package com.possible_triangle.multikulti;
+package com.possible_triangle.multikulti.datagen;
 
 import com.possible_triangle.multikulti.platform.Services;
 import java.util.List;

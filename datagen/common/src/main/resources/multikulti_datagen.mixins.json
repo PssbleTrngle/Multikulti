@@ -1,15 +1,17 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.possible_triangle.multikulti.mixin",
+  "package": "com.possible_triangle.multikulti.datagen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "RecipeProviderMixin",
-    "RecipeBuilderMixin"
+    "ConditionalMixin",
+    "RecipeBuilderMixin",
+    "LootTableBuilderMixin",
+    "BlockLootSubProviderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "refmap": "${mod_id}.refmap.json",
-  "plugin": "com.possible_triangle.multikulti.MultikultiDatagenMixinPlugin"
+  "plugin": "com.possible_triangle.multikulti.datagen.MultikultiDatagenMixinPlugin"
 }

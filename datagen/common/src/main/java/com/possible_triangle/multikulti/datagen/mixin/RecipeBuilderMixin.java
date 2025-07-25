@@ -1,9 +1,10 @@
-package com.possible_triangle.multikulti.mixin;
+package com.possible_triangle.multikulti.datagen.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.possible_triangle.multikulti.datagen.conditions.ConditionHolder;
 import com.possible_triangle.multikulti.datagen.conditions.Conditional;
+import com.possible_triangle.multikulti.datagen.conditions.IConditionHolder;
 import java.util.function.Consumer;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -27,10 +28,10 @@ import org.spongepowered.asm.mixin.injection.Coerce;
 public class RecipeBuilderMixin implements Conditional {
 
     @Unique
-    private final ConditionHolder multikulti$conditions = new ConditionHolder();
+    private final IConditionHolder multikulti$conditions = new ConditionHolder();
 
     @Override
-    public ConditionHolder multikulti$conditions() {
+    public IConditionHolder multikulti$conditions() {
         return multikulti$conditions;
     }
 

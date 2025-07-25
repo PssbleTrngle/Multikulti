@@ -7,15 +7,15 @@ private fun Any.warnNotConditional() {
     LOGGER.dev("trying to access condition of a non-conditional {}", javaClass.name)
 }
 
-private val STUB = ConditionHolder()
+private val STUB = ConditionalHolderStub()
 
 interface Conditional {
 
-    fun `multikulti$conditions`(): ConditionHolder
+    fun `multikulti$conditions`(): IConditionHolder
 
     companion object {
         @JvmStatic
-        fun <T : Any> of(value: T): ConditionHolder {
+        fun <T : Any> of(value: T): IConditionHolder {
             if (value is Conditional) return value.`multikulti$conditions`()
             value.warnNotConditional()
             return STUB
@@ -28,9 +28,21 @@ interface Conditional {
         fun <T : Any> with(value: T, conditions: Collection<Condition>): T = value.apply {
             if (conditions.isNotEmpty()) of(value).add(conditions)
         }
+
+        @JvmStatic
+        fun <T : Any> with(value: T, vararg conditions: Condition, block: Runnable): T =
+            with(value, conditions.toList(), block)
+
+        @JvmStatic
+        fun <T : Any> with(value: T, conditions: Collection<Condition>, block: Runnable): T = value.apply {
+            of(this).with(conditions.toList(), block::run)
+        }
     }
 
 }
 
 fun <T : Any> T.`when`(vararg conditions: Condition): T =
     Conditional.with(this, *conditions)
+
+fun <T : Any> T.withConditions(vararg conditions: Condition, block: () -> Unit): T =
+    Conditional.with(this, conditions.toList(), block)
