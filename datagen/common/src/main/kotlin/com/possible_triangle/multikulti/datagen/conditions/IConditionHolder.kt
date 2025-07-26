@@ -3,6 +3,8 @@ package com.possible_triangle.multikulti.datagen.conditions
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.possible_triangle.multikulti.datagen.MultikultiDatagenConfig
+import com.possible_triangle.multikulti.datagen.MultikultiDatagenConfig.Loader
 import kotlin.collections.Collection
 import kotlin.collections.forEach
 import kotlin.collections.hashSetOf
@@ -26,14 +28,18 @@ interface IConditionHolder {
     fun add(conditions: Collection<Condition>)
     fun get(): Collection<Condition>
 
-    fun encode(json: JsonObject) = json.apply {
-        json.appendAt("fabric:load_conditions", get().map { condition ->
-            condition.toFabric()
-        })
+    fun encode(json: JsonObject?) = json?.apply {
+        if (MultikultiDatagenConfig.INSTANCE.targets.contains(Loader.FABRIC)) {
+            appendAt("fabric:load_conditions", get().map { condition ->
+                condition.encodeToFabric()
+            })
+        }
 
-        json.appendAt("conditions", get().map { condition ->
-            condition.toForge()
-        })
+        if (MultikultiDatagenConfig.INSTANCE.targets.contains(Loader.FORGE)) {
+            appendAt("conditions", get().map { condition ->
+                condition.encodeToForge()
+            })
+        }
     }
 }
 
