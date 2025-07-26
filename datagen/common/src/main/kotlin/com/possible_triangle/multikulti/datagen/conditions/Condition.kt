@@ -10,10 +10,12 @@ interface Condition {
 
 }
 
-fun Condition.toForge(): JsonObject {
+fun Condition.encodeToForge(): JsonObject {
     return JsonObject().apply { toForge() }
 }
 
-fun Condition.toFabric(): JsonObject {
+fun Condition.encodeToFabric(): JsonObject {
     return JsonObject().apply { toFabric() }
 }
+
+fun Condition.inverted() = Inverted(this)

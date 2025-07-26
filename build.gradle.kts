@@ -25,6 +25,20 @@ subprojects {
                 includeGroup("com.tterrag.registrate")
             }
         }
+
+        maven {
+            url = uri("https://maven.createmod.net")
+            content {
+                includeGroup("com.simibubi.create")
+            }
+        }
+
+        maven {
+            url = uri("https://mvn.devos.one/snapshots/")
+            content {
+                includeGroup("com.simibubi.create")
+            }
+        }
     }
 
     enablePublishing {

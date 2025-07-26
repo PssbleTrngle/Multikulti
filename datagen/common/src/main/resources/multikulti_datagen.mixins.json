@@ -7,10 +7,11 @@
     "ConditionalMixin",
     "RecipeBuilderMixin",
     "LootTableBuilderMixin",
-    "BlockLootSubProviderMixin"
+    "BlockLootSubProviderMixin",
+    "ProcessingRecipeBuilderMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   },
   "refmap": "${mod_id}.refmap.json",
   "plugin": "com.possible_triangle.multikulti.datagen.MultikultiDatagenMixinPlugin"
