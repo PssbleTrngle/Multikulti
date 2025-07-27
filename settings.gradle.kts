@@ -11,9 +11,10 @@ pluginManagement {
 }
 
 fun module(name: String) {
-    listOf("common", "forge", "fabric").forEach { platform ->
+    val module = file(name)
+    module.list().forEach { platform ->
         include(":$name-$platform")
-        project(":$name-$platform").projectDir = file("$name/$platform")
+        project(":$name-$platform").projectDir = module.resolve(platform)
     }
 }
 
