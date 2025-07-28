@@ -1,3 +1,6 @@
+import com.possible_triangle.gradle.features.publishing.modifyPublication
+import groovy.util.Node
+
 val mod_id: String by extra
 
 plugins {
@@ -44,6 +47,23 @@ subprojects {
     enablePublishing {
         repositories {
             if (env.isCI) nexus()
+        }
+    }
+
+    modifyPublication {
+        // TODO move to gradle helper
+        suppressAllPomMetadataWarnings()
+
+        fun Node.all(key: String) = get(key) as List<Node>
+        fun Node.first(key: String) = all(key).first()
+
+        pom.withXml {
+            val node = asNode().first("dependencies")
+            val dependencies = node.all("dependency")
+            println(dependencies)
+            dependencies
+                .filter { (it.first("groupId").value() == "com.simibubi.create") }
+                .forEach { node.remove(it) }
         }
     }
 

@@ -12,9 +12,9 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(value = LootDataManager.class, remap = false)
@@ -23,10 +23,8 @@ public class LootDataManagerMixin {
     @Unique
     private static final ICondition.IContext multikulti$context = ICondition.IContext.TAGS_INVALID;
 
-    @Accessor
-    public static Logger getLOGGER() {
-        throw new IllegalStateException("@Accessor not working");
-    }
+    @Unique
+    private static final Logger multikulti$logger = LoggerFactory.getLogger(LootDataManager.class);
 
     @Unique
     private static boolean multikulti$check(JsonElement json, ResourceLocation id) {
@@ -34,7 +32,7 @@ public class LootDataManagerMixin {
         try {
             return CraftingHelper.processConditions(json.getAsJsonObject(), "conditions", multikulti$context);
         } catch (Exception ex) {
-            getLOGGER().debug("Error checking conditions for loot table {}", id, ex);
+            multikulti$logger.debug("Error checking conditions for loot table {}", id, ex);
             return true;
         }
     }
@@ -47,7 +45,7 @@ public class LootDataManagerMixin {
         if (instance != LootDataType.TABLE || multikulti$check(json, id)) {
             return original.call(instance, id, json, manager);
         } else {
-            getLOGGER().debug("Skipping loading loot table {} as it's conditions were not met", id);
+            multikulti$logger.debug("Skipping loading loot table {} as it's conditions were not met", id);
             return Optional.empty();
         }
     }
