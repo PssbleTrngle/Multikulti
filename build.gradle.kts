@@ -60,7 +60,6 @@ subprojects {
         pom.withXml {
             val node = asNode().first("dependencies")
             val dependencies = node.all("dependency")
-            println(dependencies)
             dependencies
                 .filter { (it.first("groupId").value() == "com.simibubi.create") }
                 .forEach { node.remove(it) }
