@@ -18,9 +18,17 @@ public class FabricRecipeProviderMixin {
 
     @Inject(
             method = "lambda$run$1(Ljava/util/Set;Ljava/util/List;Lnet/minecraft/data/CachedOutput;Lnet/minecraft/data/recipes/FinishedRecipe;)V",
-            at = @At(value = "INVOKE", shift = At.Shift.AFTER, target = "Lnet/fabricmc/fabric/api/resource/conditions/v1/ConditionJsonProvider;write(Lcom/google/gson/JsonObject;[Lnet/fabricmc/fabric/api/resource/conditions/v1/ConditionJsonProvider;)V")
+            at = @At(value = "INVOKE", ordinal = 0, shift = At.Shift.AFTER, target = "Lnet/fabricmc/fabric/api/resource/conditions/v1/ConditionJsonProvider;write(Lcom/google/gson/JsonObject;[Lnet/fabricmc/fabric/api/resource/conditions/v1/ConditionJsonProvider;)V")
     )
     private void serializeConditions(Set<?> generatedRecipes, List<?> list, CachedOutput writer, FinishedRecipe provider, CallbackInfo ci, @Local(ordinal = 0) JsonObject json, @Local FinishedRecipe recipe) {
+        Conditional.of(recipe).encode(json);
+    }
+
+    @Inject(
+            method = "lambda$run$1(Ljava/util/Set;Ljava/util/List;Lnet/minecraft/data/CachedOutput;Lnet/minecraft/data/recipes/FinishedRecipe;)V",
+            at = @At(value = "INVOKE", ordinal = 1, shift = At.Shift.AFTER, target = "Lnet/fabricmc/fabric/api/resource/conditions/v1/ConditionJsonProvider;write(Lcom/google/gson/JsonObject;[Lnet/fabricmc/fabric/api/resource/conditions/v1/ConditionJsonProvider;)V")
+    )
+    private void serializeAdvancementConditions(Set<?> generatedRecipes, List<?> list, CachedOutput writer, FinishedRecipe provider, CallbackInfo ci, @Local(ordinal = 1) JsonObject json, @Local FinishedRecipe recipe) {
         Conditional.of(recipe).encode(json);
     }
 
