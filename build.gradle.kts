@@ -41,6 +41,23 @@ subprojects {
         }
     }
 
+    modifyPublication {
+        // TODO move to gradle helper
+        suppressAllPomMetadataWarnings()
+
+        fun Node.all(key: String) = get(key) as List<Node>
+        fun Node.first(key: String) = all(key).first()
+
+        pom.withXml {
+            val node = asNode().first("dependencies")
+            val dependencies = node.all("dependency")
+            println(dependencies)
+            dependencies
+                .filter { (it.first("groupId").value() == "com.simibubi.create") }
+                .forEach { node.remove(it) }
+        }
+    }
+
     val module = project.projectDir.parentFile.name
     mod {
         id = "${mod_id}_${module}"
