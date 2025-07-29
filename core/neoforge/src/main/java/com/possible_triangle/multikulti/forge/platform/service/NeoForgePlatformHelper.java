@@ -1,10 +1,10 @@
 package com.possible_triangle.multikulti.forge.platform.service;
 
 import com.possible_triangle.multikulti.platform.service.IPlatformHelper;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLLoader;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLLoader;
 
-public class ForgePlatformHelper implements IPlatformHelper {
+public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public boolean isDev() {

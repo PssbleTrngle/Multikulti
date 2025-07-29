@@ -1,4 +1,4 @@
-val registrate_forge_version: String by extra
+val registrate_neoforge_version: String by extra
 
 neoforge {
     enableMixins()
@@ -7,7 +7,7 @@ neoforge {
 }
 
 dependencies {
-    modImplementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
+    modImplementation("com.tterrag.registrate:Registrate:${registrate_neoforge_version}")
 
     implementation(project(":core-common"))
     modImplementation(project(":core-neoforge")) { isTransitive = false }

@@ -16,12 +16,6 @@ subprojects {
             content {
                 includeGroup("com.tterrag.registrate_fabric")
                 includeGroup("io.github.fabricators_of_create.Porting-Lib")
-            }
-        }
-
-        maven {
-            url = uri("https://maven.tterrag.com/")
-            content {
                 includeGroup("com.tterrag.registrate")
             }
         }
