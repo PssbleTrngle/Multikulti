@@ -37,7 +37,7 @@ abstract class SoundBuilder<TParent : Any>(
     }
 
     fun with(vararg sounds: String): SoundBuilder<TParent> {
-        val ids = sounds.map { ResourceLocation(owner.modid, it) }
+        val ids = sounds.map { ResourceLocation.fromNamespaceAndPath(owner.modid, it) }
         return with(*ids.toTypedArray())
     }
 
@@ -46,7 +46,7 @@ abstract class SoundBuilder<TParent : Any>(
             "cannot create SoundEvent without any sounds"
         }
 
-        val id = ResourceLocation(owner.modid, name)
+        val id = ResourceLocation.fromNamespaceAndPath(owner.modid, name)
         return SoundEvent.createFixedRangeEvent(id, 1F)
     }
 

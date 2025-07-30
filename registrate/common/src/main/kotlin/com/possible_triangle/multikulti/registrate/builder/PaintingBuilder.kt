@@ -5,6 +5,7 @@ import com.tterrag.registrate.builders.AbstractBuilder
 import com.tterrag.registrate.builders.BuilderCallback
 import com.tterrag.registrate.providers.ProviderType
 import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.PaintingVariantTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.decoration.PaintingVariant
@@ -24,6 +25,7 @@ abstract class PaintingBuilder<TParent : Any>(
 
     private var height: Int = 16
     private var width: Int = 16
+    private var texture: ResourceLocation = ResourceLocation.fromNamespaceAndPath(owner.modid, name)
 
     fun pixelSized(width: Int, height: Int = width) = apply {
         check(height > 0) { "height must be positive, is $height" }
@@ -46,6 +48,10 @@ abstract class PaintingBuilder<TParent : Any>(
 
     abstract fun tag(tag: TagKey<PaintingVariant>): PaintingBuilder<TParent>
 
-    override fun createEntry() = PaintingVariant(width, height)
+    fun texture(value: ResourceLocation) {
+        texture = value
+    }
+
+    override fun createEntry() = PaintingVariant(width, height, texture)
 
 }

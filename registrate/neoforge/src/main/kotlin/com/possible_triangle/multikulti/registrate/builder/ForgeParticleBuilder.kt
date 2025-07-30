@@ -4,13 +4,13 @@ import com.possible_triangle.multikulti.registrate.platform.service.ForgeRegistr
 import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.builders.BuilderCallback
 import com.tterrag.registrate.util.OneTimeEventReceiver
+import com.tterrag.registrate.util.RegistrateDistExecutor
 import net.minecraft.client.particle.ParticleProvider
 import net.minecraft.client.particle.SpriteSet
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleType
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent
-import net.minecraftforge.fml.DistExecutor
+import net.neoforged.api.distmarker.Dist
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent
 
 class ForgeParticleBuilder<TOptions : ParticleOptions, TType : ParticleType<TOptions>, TParent : Any>(
     owner: AbstractRegistrate<*>,
@@ -22,7 +22,7 @@ class ForgeParticleBuilder<TOptions : ParticleOptions, TType : ParticleType<TOpt
 ) : ParticleBuilder<TOptions, TType, TParent>(owner, parent, name, callback, factory) {
 
     init {
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT) { Runnable(this::registerProvider) }
+        RegistrateDistExecutor.unsafeRunWhenOn(Dist.CLIENT) { Runnable(this::registerProvider) }
 
         setData(ForgeRegistrateBuilders.PARTICLES) { context, provider ->
             provider.spriteSet(context.get(), sprites)

@@ -6,9 +6,9 @@ import com.tterrag.registrate.providers.RegistrateProvider
 import net.minecraft.core.particles.ParticleType
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceLocation
-import net.minecraftforge.common.data.ExistingFileHelper
-import net.minecraftforge.common.data.ParticleDescriptionProvider
-import net.minecraftforge.fml.LogicalSide
+import net.neoforged.fml.LogicalSide
+import net.neoforged.neoforge.common.data.ExistingFileHelper
+import net.neoforged.neoforge.common.data.ParticleDescriptionProvider
 
 class RegistrateParticleProvider(
     private val owner: AbstractRegistrate<*>,

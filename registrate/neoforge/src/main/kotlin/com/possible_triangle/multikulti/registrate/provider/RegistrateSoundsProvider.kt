@@ -5,10 +5,10 @@ import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.providers.RegistrateProvider
 import net.minecraft.data.PackOutput
 import net.minecraft.sounds.SoundEvent
-import net.minecraftforge.common.data.ExistingFileHelper
-import net.minecraftforge.common.data.SoundDefinition
-import net.minecraftforge.common.data.SoundDefinitionsProvider
-import net.minecraftforge.fml.LogicalSide
+import net.neoforged.fml.LogicalSide
+import net.neoforged.neoforge.common.data.ExistingFileHelper
+import net.neoforged.neoforge.common.data.SoundDefinition
+import net.neoforged.neoforge.common.data.SoundDefinitionsProvider
 
 class RegistrateSoundsProvider(
     private val owner: AbstractRegistrate<*>,

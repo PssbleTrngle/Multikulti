@@ -36,7 +36,7 @@ interface IConditionHolder {
         }
 
         if (MultikultiDatagenConfig.INSTANCE.targets.contains(Loader.FORGE)) {
-            appendAt("conditions", get().map { condition ->
+            appendAt("neoforge:conditions", get().map { condition ->
                 condition.encodeToForge()
             })
         }

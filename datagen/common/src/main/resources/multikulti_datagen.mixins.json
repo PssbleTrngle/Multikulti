@@ -7,8 +7,7 @@
     "ConditionalMixin",
     "RecipeBuilderMixin",
     "LootTableBuilderMixin",
-    "BlockLootSubProviderMixin",
-    "ProcessingRecipeBuilderMixin"
+    "BlockLootSubProviderMixin"
   ],
   "injectors": {
     "defaultRequire": 0

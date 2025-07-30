@@ -3,31 +3,37 @@ package com.possible_triangle.multikulti.registrate.platform.service
 import com.possible_triangle.multikulti.registrate.builder.FabricPaintingBuilder
 import com.possible_triangle.multikulti.registrate.builder.FabricParticleBuilder
 import com.possible_triangle.multikulti.registrate.builder.FabricSoundBuilder
-import com.possible_triangle.multikulti.registrate.provider.RegistratePaintingTagsProvider
+import com.possible_triangle.multikulti.registrate.provider.RegistratePaintingVariantProvider
 import com.possible_triangle.multikulti.registrate.provider.RegistrateParticleProvider
 import com.possible_triangle.multikulti.registrate.provider.RegistrateSoundsProvider
 import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.builders.BuilderCallback
 import com.tterrag.registrate.providers.ProviderType
+import com.tterrag.registrate.providers.RegistrateTagsProvider
 import net.minecraft.client.particle.ParticleProvider
 import net.minecraft.client.particle.SpriteSet
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleType
+import net.minecraft.core.registries.Registries
+import net.minecraft.world.entity.decoration.PaintingVariant
 
 class FabricRegistrateBuilders : RegistrateBuilders {
 
     companion object {
-        val SOUNDS: ProviderType<RegistrateSoundsProvider> = ProviderType.register("sounds") { owner, context ->
-            RegistrateSoundsProvider(owner, context.output, context.helper)
+        val SOUNDS: ProviderType<RegistrateSoundsProvider> = ProviderType.registerProvider("sounds") { context ->
+            RegistrateSoundsProvider(context.parent, context.output, context.fileHelper)
         }
 
-        val PARTICLES: ProviderType<RegistrateParticleProvider> = ProviderType.register("particles") { owner, context ->
-            RegistrateParticleProvider(owner, context.output, context.helper)
+        val PARTICLES: ProviderType<RegistrateParticleProvider> = ProviderType.registerProvider("particles") { context ->
+            RegistrateParticleProvider(context.parent, context.output, context.fileHelper)
         }
 
-        val PAINTING_TAGS: ProviderType<RegistratePaintingTagsProvider> =
-            ProviderType.register("tags/painting") { owner, context ->
-                RegistratePaintingTagsProvider(owner, context.output, context.registriesLookup)
+        val PAINTING_TAGS: ProviderType<RegistrateTagsProvider.IntrinsicImpl<PaintingVariant>> = ProviderType
+            .registerIntrinsicTag("Painting Tags", "tags/painting", Registries.PAINTING_VARIANT, null)
+
+        val PAINTING_VARIANTS: ProviderType<RegistratePaintingVariantProvider> =
+            ProviderType.registerProvider("Painting Variants") { context ->
+                RegistratePaintingVariantProvider(context.parent, context.output, context.fileHelper)
             }
     }
 

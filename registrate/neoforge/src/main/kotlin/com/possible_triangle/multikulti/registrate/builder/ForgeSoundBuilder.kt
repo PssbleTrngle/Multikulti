@@ -3,7 +3,7 @@ package com.possible_triangle.multikulti.registrate.builder
 import com.possible_triangle.multikulti.registrate.platform.service.ForgeRegistrateBuilders
 import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.builders.BuilderCallback
-import net.minecraftforge.common.data.SoundDefinition
+import net.neoforged.neoforge.common.data.SoundDefinition
 
 class ForgeSoundBuilder<TParent : Any>(
     owner: AbstractRegistrate<*>,

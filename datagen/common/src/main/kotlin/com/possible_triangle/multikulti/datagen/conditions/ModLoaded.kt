@@ -10,7 +10,7 @@ data class ModLoaded @JvmOverloads constructor(val ids: Collection<String>, val 
 
     private data class ForgeModLoaded(val id: String) : Condition {
         override fun JsonObject.toForge() {
-            addProperty("type", "forge:mod_loaded")
+            addProperty("type", "neoforge:mod_loaded")
             addProperty("modid", id)
         }
 

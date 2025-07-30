@@ -1,7 +1,7 @@
 val mod_id: String by extra
 
 plugins {
-    id("com.possible-triangle.gradle") version ("0.2.16")
+    id("com.possible-triangle.gradle") version ("0.0.0-dev")
 }
 
 withKotlin()
@@ -39,22 +39,8 @@ subprojects {
         repositories {
             if (env.isCI) nexus()
         }
-    }
 
-    modifyPublication {
-        // TODO move to gradle helper
-        suppressAllPomMetadataWarnings()
-
-        fun Node.all(key: String) = get(key) as List<Node>
-        fun Node.first(key: String) = all(key).first()
-
-        pom.withXml {
-            val node = asNode().first("dependencies")
-            val dependencies = node.all("dependency")
-            dependencies
-                .filter { (it.first("groupId").value() == "com.simibubi.create") }
-                .forEach { node.remove(it) }
-        }
+        removePomDependencies(groupId = "com.simibubi.create")
     }
 
     val module = project.projectDir.parentFile.name

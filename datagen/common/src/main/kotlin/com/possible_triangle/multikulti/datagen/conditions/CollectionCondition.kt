@@ -17,7 +17,7 @@ interface CollectionCondition : Condition {
         check()
         if (conditions.size == 1) return with(conditions.first()) { toForge() }
 
-        addProperty("type", "forge:$key")
+        addProperty("type", "neoforge:$key")
         add("values", JsonArray().apply {
             conditions.forEach {
                 add(it.encodeToForge())

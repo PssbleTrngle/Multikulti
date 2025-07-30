@@ -3,16 +3,18 @@ package com.possible_triangle.multikulti.registrate.platform.service
 import com.possible_triangle.multikulti.registrate.builder.ForgePaintingBuilder
 import com.possible_triangle.multikulti.registrate.builder.ForgeParticleBuilder
 import com.possible_triangle.multikulti.registrate.builder.ForgeSoundBuilder
-import com.possible_triangle.multikulti.registrate.provider.RegistratePaintingTagsProvider
 import com.possible_triangle.multikulti.registrate.provider.RegistrateParticleProvider
 import com.possible_triangle.multikulti.registrate.provider.RegistrateSoundsProvider
 import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.builders.BuilderCallback
 import com.tterrag.registrate.providers.ProviderType
+import com.tterrag.registrate.providers.RegistrateTagsProvider
 import net.minecraft.client.particle.ParticleProvider
 import net.minecraft.client.particle.SpriteSet
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleType
+import net.minecraft.core.registries.Registries
+import net.minecraft.world.entity.decoration.PaintingVariant
 
 class ForgeRegistrateBuilders : RegistrateBuilders {
 
@@ -25,9 +27,8 @@ class ForgeRegistrateBuilders : RegistrateBuilders {
             RegistrateParticleProvider(owner, context.generator.packOutput, context.existingFileHelper)
         }
 
-        val PAINTING_TAGS: ProviderType<RegistratePaintingTagsProvider> = ProviderType.register("painting_tags") { owner, context ->
-            RegistratePaintingTagsProvider(owner, context.generator.packOutput, context.lookupProvider, context.existingFileHelper)
-        }
+        val PAINTING_TAGS: ProviderType<RegistrateTagsProvider.IntrinsicImpl<PaintingVariant>> = ProviderType
+            .registerIntrinsicTag("Painting Tags", "tags/painting", Registries.PAINTING_VARIANT, null)
     }
 
     override fun <TParent : Any> sound(

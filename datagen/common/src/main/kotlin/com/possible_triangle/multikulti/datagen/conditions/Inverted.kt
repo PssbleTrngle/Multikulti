@@ -9,7 +9,7 @@ data class Inverted(val condition: Condition) : Condition {
             toForge()
         }
 
-        addProperty("type", "forge:not")
+        addProperty("type", "neoforge:not")
         add("value", condition.encodeToForge())
     }
 

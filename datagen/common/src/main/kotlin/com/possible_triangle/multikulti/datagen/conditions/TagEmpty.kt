@@ -12,7 +12,7 @@ data class TagEmpty(val tag: ResourceLocation) : Condition {
     private val inverted = Inverted(TagEmpty(tag))
 
     override fun JsonObject.toForge() {
-        addProperty("type", "forge:tag_empty")
+        addProperty("type", "neoforge:tag_empty")
         addProperty("tag", tag.toString())
     }
 

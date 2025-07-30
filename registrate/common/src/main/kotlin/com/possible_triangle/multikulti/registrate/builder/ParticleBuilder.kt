@@ -28,10 +28,10 @@ abstract class ParticleBuilder<TOptions : ParticleOptions, TType : ParticleType<
         sprites.addAll(textures)
     }
 
-    fun sprite(vararg textures: String) = sprite(*textures.map { ResourceLocation(owner.modid, it) }.toTypedArray())
+    fun sprite(vararg textures: String) = sprite(*textures.map { ResourceLocation.fromNamespaceAndPath(owner.modid, it) }.toTypedArray())
 
     fun sprites(texture: String, numOfTextures: Int, reverse: Boolean = false) =
-        sprites(ResourceLocation(owner.modid, texture), numOfTextures, reverse)
+        sprites(ResourceLocation.fromNamespaceAndPath(owner.modid, texture), numOfTextures, reverse)
 
     fun sprites(
         texture: ResourceLocation,
