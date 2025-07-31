@@ -25,9 +25,9 @@ abstract class PaintingBuilder<TParent : Any>(
 
     private var height: Int = 16
     private var width: Int = 16
-    private var texture: ResourceLocation = ResourceLocation.fromNamespaceAndPath(owner.modid, name)
+    private var texture: ResourceLocation = key.location()
 
-    fun pixelSized(width: Int, height: Int = width) = apply {
+    fun sized(width: Int, height: Int = width) = apply {
         check(height > 0) { "height must be positive, is $height" }
         check(width > 0) { "width must be positive, is $width" }
 
@@ -35,7 +35,7 @@ abstract class PaintingBuilder<TParent : Any>(
         this.width = width
     }
 
-    fun sized(width: Int, height: Int = width) = pixelSized(width * 16, height * 16)
+    fun pixelSized(width: Int, height: Int = width) = sized(width / 16, height / 16)
 
     fun lang(title: String, author: String) = apply {
         setData(ProviderType.LANG) { context, provider ->
