@@ -46,8 +46,7 @@ abstract class SoundBuilder<TParent : Any>(
             "cannot create SoundEvent without any sounds"
         }
 
-        val id = ResourceLocation(owner.modid, name)
-        return SoundEvent.createFixedRangeEvent(id, 1F)
+        return SoundEvent.createFixedRangeEvent(key.location(), 1F)
     }
 
 }
