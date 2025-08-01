@@ -1,7 +1,7 @@
 val mod_id: String by extra
 
 plugins {
-    id("com.possible-triangle.gradle") version ("0.0.0-dev")
+    id("com.possible-triangle.gradle") version ("0.2.17")
 }
 
 withKotlin()
@@ -14,7 +14,6 @@ subprojects {
         maven {
             url = uri("https://mvn.devos.one/snapshots/")
             content {
-                includeGroup("com.tterrag.registrate_fabric")
                 includeGroup("io.github.fabricators_of_create.Porting-Lib")
                 includeGroup("com.tterrag.registrate")
             }
@@ -33,13 +32,16 @@ subprojects {
                 includeGroup("com.simibubi.create")
             }
         }
+
+        nexus {
+            content {
+                includeGroup("com.tterrag.registrate_fabric")
+            }
+        }
     }
 
     enablePublishing {
-        repositories {
-            if (env.isCI) nexus()
-        }
-
+        nexus()
         removePomDependencies(groupId = "com.simibubi.create")
     }
 

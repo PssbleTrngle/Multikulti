@@ -4,12 +4,16 @@ import com.possible_triangle.multikulti.platform.Services
 import com.possible_triangle.multikulti.registrate.builder.PaintingBuilder
 import com.possible_triangle.multikulti.registrate.builder.ParticleBuilder
 import com.possible_triangle.multikulti.registrate.builder.SoundBuilder
+import com.possible_triangle.multikulti.registrate.platform.ValidationContext
 import com.tterrag.registrate.AbstractRegistrate
+import com.tterrag.registrate.builders.Builder
 import com.tterrag.registrate.builders.BuilderCallback
+import com.tterrag.registrate.providers.DataProviderInitializer
 import net.minecraft.client.particle.ParticleProvider
 import net.minecraft.client.particle.SpriteSet
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleType
+import net.minecraft.core.particles.SimpleParticleType
 
 interface RegistrateBuilders {
 
@@ -34,11 +38,23 @@ interface RegistrateBuilders {
         provider: (sprites: SpriteSet) -> ParticleProvider<TOptions>,
     ): ParticleBuilder<TOptions, TType, TParent>
 
+    fun <TParent : Any> particle(
+        owner: AbstractRegistrate<*>,
+        parent: TParent,
+        name: String,
+        callback: BuilderCallback,
+        provider: (sprites: SpriteSet) -> ParticleProvider<SimpleParticleType>,
+    ): ParticleBuilder<SimpleParticleType, SimpleParticleType, TParent>
+
     fun <TParent : Any> painting(
         owner: AbstractRegistrate<*>,
         parent: TParent,
         name: String,
         callback: BuilderCallback
     ): PaintingBuilder<TParent>
+
+    fun registerDependencies(initializer: DataProviderInitializer)
+
+    fun validate(builder: Builder<*, *, *, *>, block: ValidationContext.() -> Unit)
 
 }

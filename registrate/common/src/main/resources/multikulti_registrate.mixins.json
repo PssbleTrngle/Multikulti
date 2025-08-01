@@ -4,8 +4,9 @@
   "package": "com.possible_triangle.multikulti.registrate.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "RegistrateAccessor",
-    "AbstractBuilderMixin"
+    "AbstractBuilderMixin",
+    "DataProviderInitializerMixin",
+    "RegistrateAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
