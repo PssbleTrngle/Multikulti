@@ -16,19 +16,17 @@ import net.minecraft.core.particles.SimpleParticleType
 fun <TOptions : ParticleOptions, TType : ParticleType<TOptions>, TParent : AbstractRegistrate<out TParent>> TParent.createParticle(
     name: String = getCurrentName(),
     factory: () -> TType,
-    provider: (sprites: SpriteSet) -> ParticleProvider<TOptions>,
 ): ParticleBuilder<TOptions, TType, TParent> {
     return entry(name) { callback ->
-        RegistrateBuilders.INSTANCE.particle(this, this, name, callback, factory, provider)
+        RegistrateBuilders.INSTANCE.particle(this, this, name, callback, factory)
     }
 }
 
 @JvmOverloads
 fun <TParent : AbstractRegistrate<out TParent>> TParent.createParticle(
     name: String = getCurrentName(),
-    provider: (sprites: SpriteSet) -> ParticleProvider<SimpleParticleType>,
 ): ParticleBuilder<SimpleParticleType, SimpleParticleType, TParent> {
     return entry(name) { callback ->
-        RegistrateBuilders.INSTANCE.particle(this, this, name, callback, provider)
+        RegistrateBuilders.INSTANCE.particle(this, this, name, callback)
     }
 }

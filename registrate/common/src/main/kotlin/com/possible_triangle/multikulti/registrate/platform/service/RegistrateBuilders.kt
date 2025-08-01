@@ -34,7 +34,6 @@ interface RegistrateBuilders {
         name: String,
         callback: BuilderCallback,
         factory: () -> TType,
-        provider: (sprites: SpriteSet) -> ParticleProvider<TOptions>,
     ): ParticleBuilder<TOptions, TType, TParent>
 
     fun <TParent : Any> particle(
@@ -42,7 +41,6 @@ interface RegistrateBuilders {
         parent: TParent,
         name: String,
         callback: BuilderCallback,
-        provider: (sprites: SpriteSet) -> ParticleProvider<SimpleParticleType>,
     ): ParticleBuilder<SimpleParticleType, SimpleParticleType, TParent>
 
     fun <TParent : Any> painting(

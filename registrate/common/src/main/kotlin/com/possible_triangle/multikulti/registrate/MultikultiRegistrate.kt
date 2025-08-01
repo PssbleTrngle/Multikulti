@@ -26,13 +26,9 @@ open class MultikultiRegistrate<TRegistrate : MultikultiRegistrate<TRegistrate>>
     fun <TOptions : ParticleOptions, TType : ParticleType<TOptions>> particle(
         name: String = currentName(),
         factory: () -> TType,
-        provider: (sprites: SpriteSet) -> ParticleProvider<TOptions>,
-    ) = createParticle(name, factory, provider)
+    ) = createParticle(name, factory)
 
     @JvmOverloads
-    fun particle(
-        name: String = currentName(),
-        provider: (sprites: SpriteSet) -> ParticleProvider<SimpleParticleType>,
-    ) = createParticle(name, provider)
+    fun particle(name: String = currentName()) = createParticle(name)
 
 }
