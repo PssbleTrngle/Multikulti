@@ -3,6 +3,8 @@ package com.possible_triangle.multikulti.registrate.builder
 import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.builders.AbstractBuilder
 import com.tterrag.registrate.builders.BuilderCallback
+import net.minecraft.client.particle.ParticleProvider
+import net.minecraft.client.particle.SpriteSet
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleType
 import net.minecraft.core.registries.Registries
@@ -22,19 +24,27 @@ abstract class ParticleBuilder<TOptions : ParticleOptions, TType : ParticleType<
     Registries.PARTICLE_TYPE
 ) {
 
-    protected val sprites = arrayListOf<ResourceLocation>()
+    private val _sprites = arrayListOf<ResourceLocation>()
+
+    val sprites: List<ResourceLocation>
+        get() = _sprites.ifEmpty {
+            listOf(key.location())
+        }
 
     fun sprite(vararg textures: ResourceLocation) = apply {
-        sprites.addAll(textures)
+        _sprites.addAll(textures)
     }
 
-    fun sprite(vararg textures: String) = sprite(*textures.map { ResourceLocation.fromNamespaceAndPath(owner.modid, it) }.toTypedArray())
+    fun sprite(vararg textures: String) =
+        sprite(*textures.map { ResourceLocation.fromNamespaceAndPath(owner.modid, it) }.toTypedArray())
 
+    @JvmOverloads
     fun sprites(texture: String, numOfTextures: Int, reverse: Boolean = false) =
         sprites(ResourceLocation.fromNamespaceAndPath(owner.modid, texture), numOfTextures, reverse)
 
+    @JvmOverloads
     fun sprites(
-        texture: ResourceLocation,
+        texture: ResourceLocation = key.location(),
         numOfTextures: Int,
         reverse: Boolean = false
     ): ParticleBuilder<TOptions, TType, TParent> {
@@ -43,6 +53,8 @@ abstract class ParticleBuilder<TOptions : ParticleOptions, TType : ParticleType<
         val textures = range.map { texture.withSuffix("_${it}") }
         return sprite(*textures.toTypedArray())
     }
+
+    abstract fun provider(supplier: () -> (sprites: SpriteSet) -> ParticleProvider<TOptions>): ParticleBuilder<TOptions, TType, TParent>
 
     override fun createEntry(): TType = factory()
 

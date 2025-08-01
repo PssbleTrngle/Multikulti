@@ -3,7 +3,6 @@ package com.possible_triangle.multikulti.registrate.platform.service
 import com.possible_triangle.multikulti.registrate.builder.FabricPaintingBuilder
 import com.possible_triangle.multikulti.registrate.builder.FabricParticleBuilder
 import com.possible_triangle.multikulti.registrate.builder.FabricSoundBuilder
-import com.possible_triangle.multikulti.registrate.builder.ParticleBuilder
 import com.possible_triangle.multikulti.registrate.platform.ValidationContext
 import com.possible_triangle.multikulti.registrate.provider.RegistrateParticleProvider
 import com.possible_triangle.multikulti.registrate.provider.RegistrateSoundsProvider
@@ -15,11 +14,8 @@ import com.tterrag.registrate.providers.DataProviderInitializer
 import com.tterrag.registrate.providers.ProviderType
 import com.tterrag.registrate.providers.RegistrateTagsProvider
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes
-import net.minecraft.client.particle.ParticleProvider
-import net.minecraft.client.particle.SpriteSet
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleType
-import net.minecraft.core.particles.SimpleParticleType
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.entity.decoration.PaintingVariant
 
@@ -59,16 +55,14 @@ class FabricRegistrateBuilders : RegistrateBuilders {
         name: String,
         callback: BuilderCallback,
         factory: () -> TType,
-        provider: (sprites: SpriteSet) -> ParticleProvider<TOptions>,
-    ) = FabricParticleBuilder(owner, parent, name, callback, factory, provider)
+    ) = FabricParticleBuilder(owner, parent, name, callback, factory)
 
     override fun <TParent : Any> particle(
         owner: AbstractRegistrate<*>,
         parent: TParent,
         name: String,
         callback: BuilderCallback,
-        provider: (SpriteSet) -> ParticleProvider<SimpleParticleType>
-    ) = particle(owner, parent, name, callback, FabricParticleTypes::simple, provider)
+    ) = particle(owner, parent, name, callback, FabricParticleTypes::simple)
 
     override fun <TParent : Any> painting(
         owner: AbstractRegistrate<*>,

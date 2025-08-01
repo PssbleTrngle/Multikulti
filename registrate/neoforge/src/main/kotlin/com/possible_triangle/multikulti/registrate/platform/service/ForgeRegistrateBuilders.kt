@@ -58,16 +58,14 @@ class ForgeRegistrateBuilders : RegistrateBuilders {
         name: String,
         callback: BuilderCallback,
         factory: () -> TType,
-        provider: (sprites: SpriteSet) -> ParticleProvider<TOptions>,
-    ) = ForgeParticleBuilder(owner, parent, name, callback, factory, provider)
+    ) = ForgeParticleBuilder(owner, parent, name, callback, factory)
 
     override fun <TParent : Any> particle(
         owner: AbstractRegistrate<*>,
         parent: TParent,
         name: String,
         callback: BuilderCallback,
-        provider: (SpriteSet) -> ParticleProvider<SimpleParticleType>
-    ) = particle(owner, parent, name, callback, { SimpleParticleType(false) }, provider)
+    ) = particle(owner, parent, name, callback) { SimpleParticleType(false) }
 
     override fun <TParent : Any> painting(
         owner: AbstractRegistrate<*>,

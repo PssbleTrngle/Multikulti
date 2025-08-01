@@ -17,20 +17,21 @@ class FabricParticleBuilder<TOptions : ParticleOptions, TType : ParticleType<TOp
     name: String,
     callback: BuilderCallback,
     factory: () -> TType,
-    private val provider: (sprites: SpriteSet) -> ParticleProvider<TOptions>
 ) : ParticleBuilder<TOptions, TType, TParent>(owner, parent, name, callback, factory) {
 
     init {
-        EnvExecutor.runWhenOn(EnvType.CLIENT) { Runnable(this::registerProvider) }
-
         setData(FabricRegistrateBuilders.PARTICLES) { context, provider ->
             provider.spriteSet(context.id, sprites)
         }
     }
 
-    private fun registerProvider() {
-        onRegister {
-            ParticleFactoryRegistry.getInstance().register(entry, provider)
+    override fun provider(supplier: () -> (SpriteSet) -> ParticleProvider<TOptions>) = apply {
+        EnvExecutor.runWhenOn(EnvType.CLIENT) {
+            Runnable {
+                onRegister {
+                    ParticleFactoryRegistry.getInstance().register(it, supplier())
+                }
+            }
         }
     }
 
