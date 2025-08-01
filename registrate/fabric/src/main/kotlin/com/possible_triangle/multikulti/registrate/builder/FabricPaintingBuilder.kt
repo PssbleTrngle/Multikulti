@@ -13,10 +13,6 @@ class FabricPaintingBuilder<TParent : Any>(
     callback: BuilderCallback,
 ) : PaintingBuilder<TParent>(owner, parent, name, callback) {
 
-    init {
-        dataDriven()
-    }
-
     override fun tag(tag: TagKey<PaintingVariant>): PaintingBuilder<TParent> {
         return tag(FabricRegistrateBuilders.PAINTING_TAGS, tag)
     }

@@ -1,11 +1,13 @@
 package com.possible_triangle.multikulti.registrate.builder
 
+import com.possible_triangle.multikulti.registrate.validate
 import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.builders.AbstractBuilder
 import com.tterrag.registrate.builders.BuilderCallback
 import com.tterrag.registrate.providers.ProviderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.packs.PackType
 import net.minecraft.tags.PaintingVariantTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.decoration.PaintingVariant
@@ -22,6 +24,23 @@ abstract class PaintingBuilder<TParent : Any>(
     callback,
     Registries.PAINTING_VARIANT
 ) {
+
+    init {
+        dataDriven()
+        validate {
+            val assetId = createEntry().assetId()
+            check(
+                exists(
+                    assetId,
+                    PackType.CLIENT_RESOURCES,
+                    ".png",
+                    "textures/painting"
+                )
+            ) {
+                "Painting texture '${assetId}' does not exist in any known resource pack"
+            }
+        }
+    }
 
     private var height: Int = 16
     private var width: Int = 16
