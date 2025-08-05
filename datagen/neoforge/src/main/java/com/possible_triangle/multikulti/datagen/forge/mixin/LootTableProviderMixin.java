@@ -30,7 +30,7 @@ public class LootTableProviderMixin {
     )
     private CompletableFuture<?> serializeConditions(CachedOutput cachedOutput, HolderLookup.Provider provider, Codec<LootTable> codec, Object object, Path path, Operation<CompletableFuture<?>> original) {
         var conditions = NeoforgeConditionExtender.extend(Conditional.of(object));
-        return original.call(cachedOutput, provider, CONDITIONAL_CODEC, new WithConditions<>(object, conditions), path);
+        return original.call(cachedOutput, provider, CONDITIONAL_CODEC, Optional.of(new WithConditions<>(object, conditions)), path);
     }
 
 }
