@@ -4,5 +4,5 @@ val kotlin_version = getKotlinPluginVersion()
 
 neoforge {
     dependOn(project(":core-common"))
-//  includesLibrary("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    includesLibrary("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
 }
