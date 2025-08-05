@@ -21,9 +21,3 @@ modId = "minecraft"
 versionRange = "[1.21.1,)"
 ordering = "NONE"
 side = "BOTH"
-
-[[dependencies.${mod_id}]]
-modId="kotlinforforge"
-versionRange="[5.0,)"
-ordering="NONE"
-side="BOTH"
