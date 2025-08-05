@@ -1,10 +1,18 @@
 val mod_id: String by extra
+val mc_version: String by extra
 
 plugins {
     id("com.possible-triangle.gradle") version ("0.2.17")
 }
 
 withKotlin()
+
+val isSnapshot = env["SNAPSHOT"] == "true"
+if (isSnapshot) {
+    mod {
+        version = "${mc_version}-SNAPSHOT"
+    }
+}
 
 subprojects {
     repositories {
@@ -41,7 +49,7 @@ subprojects {
     }
 
     enablePublishing {
-        nexus()
+        nexus(snapshot = isSnapshot)
         removePomDependencies(groupId = "com.simibubi.create")
     }
 
