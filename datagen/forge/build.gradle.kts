@@ -18,5 +18,5 @@ dependencies {
     implementation(project(":core-common"))
     modImplementation(project(":core-forge")) { isTransitive = false }
 
-    modImplementation("com.simibubi.create:create-${mc_version}:${create_forge_version}:slim") { isTransitive = false }
+    modCompileOnly("com.simibubi.create:create-${mc_version}:${create_forge_version}:slim") { isTransitive = false }
 }
