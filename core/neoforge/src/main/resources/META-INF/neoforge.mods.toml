@@ -12,14 +12,18 @@ description = '''Multiplatform Extensions'''
 
 [[dependencies.${mod_id}]]
 modId = "neoforge"
-mandatory = true
 versionRange = "[21,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "minecraft"
-mandatory = true
 versionRange = "[1.21.1,)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId="kotlinforforge"
+versionRange="[5.0,)"
+ordering="NONE"
+side="BOTH"
