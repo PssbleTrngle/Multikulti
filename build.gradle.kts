@@ -2,7 +2,7 @@ val mod_id: String by extra
 val mc_version: String by extra
 
 plugins {
-    id("com.possible-triangle.gradle") version ("0.2.17")
+    id("com.possible-triangle.gradle") version ("0.2.18")
 }
 
 withKotlin()
