@@ -26,13 +26,13 @@ class ForgeRegistrateBuilders : RegistrateBuilders {
 
     companion object {
         @JvmStatic
-        val SOUNDS: ProviderType<RegistrateSoundsProvider> = ProviderType.register("sounds") { owner, context ->
-            RegistrateSoundsProvider(owner, context.generator.packOutput, context.existingFileHelper)
+        val SOUNDS: ProviderType<RegistrateSoundsProvider> = ProviderType.registerProvider("sounds") {
+            RegistrateSoundsProvider(it.parent, it.output, it.fileHelper)
         }
 
         @JvmStatic
-        val PARTICLES: ProviderType<RegistrateParticleProvider> = ProviderType.register("particles") { owner, context ->
-            RegistrateParticleProvider(owner, context.generator.packOutput, context.existingFileHelper)
+        val PARTICLES: ProviderType<RegistrateParticleProvider> = ProviderType.registerProvider("particles") {
+            RegistrateParticleProvider(it.parent, it.output, it.fileHelper)
         }
 
         @JvmStatic
