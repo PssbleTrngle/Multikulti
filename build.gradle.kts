@@ -9,8 +9,9 @@ withKotlin()
 
 val isSnapshot = env["SNAPSHOT"] == "true"
 if (isSnapshot) {
+    val buildNumber = env["GITHUB_RUN_NUMBER"] ?: "999999"
     mod {
-        version = "${mc_version}-SNAPSHOT"
+        version = "${mc_version}-${buildNumber}-SNAPSHOT"
     }
 }
 
