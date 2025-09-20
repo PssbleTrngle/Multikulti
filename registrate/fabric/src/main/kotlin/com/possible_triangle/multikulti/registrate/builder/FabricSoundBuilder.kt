@@ -17,7 +17,13 @@ class FabricSoundBuilder<TParent : Any>(
             val definition = SoundDefinition.definition()
             subtitleKey?.let(definition::subtitle)
             sounds.forEach {
-                definition.with(SoundDefinition.Sound.sound(it, SoundDefinition.SoundType.SOUND))
+                definition.with(
+                    SoundDefinition.Sound.sound(it.id, SoundDefinition.SoundType.SOUND)
+                        .stream(it.stream ?: stream)
+                        .volume(it.volume)
+                        .pitch(it.pitch)
+                        .weight(it.weight)
+                )
             }
 
             provider.add(context.get(), definition)

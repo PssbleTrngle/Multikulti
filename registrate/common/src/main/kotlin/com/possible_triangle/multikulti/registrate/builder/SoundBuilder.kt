@@ -23,7 +23,9 @@ abstract class SoundBuilder<TParent : Any>(
     protected var subtitleKey: String? = null
         private set
 
-    protected val sounds = hashSetOf<ResourceLocation>()
+    protected val sounds = hashSetOf<Entry>()
+
+    protected var stream = false
 
     abstract fun lang(key: String, translation: String): SoundBuilder<TParent>
 
@@ -32,13 +34,28 @@ abstract class SoundBuilder<TParent : Any>(
         return lang(subtitleKey!!, translation)
     }
 
+    @JvmOverloads
+    fun with(
+        sound: ResourceLocation,
+        weight: Int,
+        volume: Float = 1.0F,
+        pitch: Float = 1.0F,
+        stream: Boolean? = null,
+    ): SoundBuilder<TParent> = apply {
+        sounds.add(Entry(sound, weight, volume, pitch, stream))
+    }
+
     fun with(vararg sounds: ResourceLocation): SoundBuilder<TParent> = apply {
-        this.sounds.addAll(sounds)
+        sounds.forEach { with(it, 1) }
     }
 
     fun with(vararg sounds: String): SoundBuilder<TParent> {
         val ids = sounds.map { ResourceLocation.fromNamespaceAndPath(owner.modid, it) }
         return with(*ids.toTypedArray())
+    }
+
+    fun stream() = apply {
+        stream = true
     }
 
     override fun createEntry(): SoundEvent {
@@ -48,5 +65,13 @@ abstract class SoundBuilder<TParent : Any>(
 
         return SoundEvent.createFixedRangeEvent(key.location(), 1F)
     }
+
+    data class Entry(
+        val id: ResourceLocation,
+        val weight: Int,
+        val volume: Float,
+        val pitch: Float,
+        val stream: Boolean?
+    )
 
 }
