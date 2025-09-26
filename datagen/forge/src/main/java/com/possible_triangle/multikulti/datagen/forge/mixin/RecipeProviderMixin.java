@@ -18,7 +18,7 @@ public class RecipeProviderMixin {
     )
     private JsonObject serializeConditions(FinishedRecipe instance, Operation<JsonObject> original) {
         var json = original.call(instance);
-        return Conditional.of(instance).encode(json);
+        return Conditional.merge(this, instance).encode(json);
     }
 
     @WrapOperation(
@@ -27,7 +27,7 @@ public class RecipeProviderMixin {
     )
     private JsonObject serializeAdvancementConditions(FinishedRecipe instance, Operation<JsonObject> original) {
         var json = original.call(instance);
-        return Conditional.of(instance).encode(json);
+        return Conditional.merge(this, instance).encode(json);
     }
 
 }

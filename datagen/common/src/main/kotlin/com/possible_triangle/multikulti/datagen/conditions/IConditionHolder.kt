@@ -23,9 +23,7 @@ private fun JsonObject.appendAt(key: String, values: Collection<JsonElement>) {
     values.forEach { array.add(it) }
 }
 
-interface IConditionHolder {
-    fun with(conditions: Collection<Condition>, block: () -> Unit)
-    fun add(conditions: Collection<Condition>)
+interface IReadOnlyConditionHolder {
     fun get(): Collection<Condition>
 
     fun encode(json: JsonObject?) = json?.apply {
@@ -41,6 +39,11 @@ interface IConditionHolder {
             })
         }
     }
+}
+
+interface IConditionHolder : IReadOnlyConditionHolder {
+    fun with(conditions: Collection<Condition>, block: () -> Unit)
+    fun add(conditions: Collection<Condition>)
 }
 
 internal class ConditionalHolderStub : IConditionHolder {
@@ -59,12 +62,12 @@ internal class ConditionalHolderStub : IConditionHolder {
 class ConditionHolder : IConditionHolder {
 
     private val values = hashSetOf<Condition>()
-    private var temporary: Collection<Condition> = emptyList()
+    private val temporary: ArrayDeque<Condition> = ArrayDeque()
 
     override fun with(conditions: Collection<Condition>, block: () -> Unit) {
-        temporary = conditions
+        conditions.forEach(temporary::addLast)
         block()
-        temporary = emptyList()
+        repeat(conditions.size) { temporary.removeLast() }
     }
 
     override fun add(conditions: Collection<Condition>) {
@@ -76,3 +79,10 @@ class ConditionHolder : IConditionHolder {
     }
 
 }
+
+class ReadonlyConditionHolder(private val conditions: Collection<Condition>) : IReadOnlyConditionHolder {
+    override fun get() = conditions
+}
+
+fun IReadOnlyConditionHolder.merge(other: IReadOnlyConditionHolder): IReadOnlyConditionHolder =
+    ReadonlyConditionHolder(get() + other.get())
