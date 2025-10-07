@@ -37,6 +37,12 @@ interface Conditional {
         fun <T : Any> with(value: T, conditions: Collection<Condition>, block: Runnable): T = value.apply {
             of(this).with(conditions.toList(), block::run)
         }
+
+        @JvmStatic
+        fun merge(vararg values: Any): IReadOnlyConditionHolder {
+            val holders = values.map { of(it) as IReadOnlyConditionHolder }.toList()
+            return holders.reduce { a, b -> a.merge(b) }
+        }
     }
 
 }

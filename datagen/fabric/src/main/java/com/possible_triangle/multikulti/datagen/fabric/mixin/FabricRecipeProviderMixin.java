@@ -19,7 +19,7 @@ public class FabricRecipeProviderMixin {
             at = @At(value = "INVOKE", ordinal = 0, shift = At.Shift.AFTER, target = "Lnet/fabricmc/fabric/impl/datagen/FabricDataGenHelper;addConditions(Lcom/google/gson/JsonObject;[Lnet/fabricmc/fabric/api/resource/conditions/v1/ResourceCondition;)V")
     )
     private void serializeConditions(ResourceLocation id, Recipe<?> recipe, AdvancementHolder advancement, CallbackInfo ci, @Local(ordinal = 0) JsonObject json) {
-        Conditional.of(recipe).encode(json);
+        Conditional.merge(this, recipe).encode(json);
     }
 
     @Inject(
@@ -27,7 +27,7 @@ public class FabricRecipeProviderMixin {
             at = @At(value = "INVOKE", ordinal = 1, shift = At.Shift.AFTER, target = "Lnet/fabricmc/fabric/impl/datagen/FabricDataGenHelper;addConditions(Lcom/google/gson/JsonObject;[Lnet/fabricmc/fabric/api/resource/conditions/v1/ResourceCondition;)V")
     )
     private void serializeAdvancementConditions(ResourceLocation recipeId, Recipe<?> recipe, AdvancementHolder advancement, CallbackInfo ci, @Local(ordinal = 1) JsonObject json) {
-        Conditional.of(recipe).encode(json);
+        Conditional.merge(this, recipe).encode(json);
     }
 
 }
