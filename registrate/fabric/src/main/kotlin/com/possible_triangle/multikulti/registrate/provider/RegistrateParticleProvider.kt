@@ -48,7 +48,7 @@ class RegistrateParticleProvider(
             }
         }
 
-        check(entries.putIfAbsent(id, textures) != null) {
+        check(entries.putIfAbsent(id, textures) == null) {
             "The particle type '$id' already has a description associated with it"
         }
     }
