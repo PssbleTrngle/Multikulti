@@ -32,7 +32,7 @@ public class RecipeProviderMixin {
 
             @Override
             public void accept(ResourceLocation id, Recipe<?> recipe, @Nullable AdvancementHolder advancementHolder, ICondition... conditions) {
-                output.accept(id, recipe, advancementHolder, NeoforgeConditionExtender.extend(Conditional.merge(this, instance), conditions));
+                output.accept(id, recipe, advancementHolder, NeoforgeConditionExtender.extend(Conditional.merge(recipe, instance), conditions));
             }
         }, provider);
     }
