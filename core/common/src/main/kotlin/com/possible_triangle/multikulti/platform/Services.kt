@@ -10,7 +10,8 @@ object Services {
 
     @JvmStatic
     fun <T> loadOptional(clazz: Class<T>): Optional<T> {
-        return ServiceLoader.load(clazz).findFirst()
+        val classLoader = Services::class.java.classLoader
+        return ServiceLoader.load(clazz, classLoader).findFirst()
     }
 
     @JvmStatic
