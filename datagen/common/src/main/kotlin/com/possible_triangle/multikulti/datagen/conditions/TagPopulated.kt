@@ -10,7 +10,7 @@ data class TagPopulated(val tag: ResourceLocation) : Condition {
 
     constructor(tag: TagKey<Item>) : this(tag.location())
 
-    private val inverted = Inverted(TagEmpty(tag))
+    private val inverted get() = Inverted(TagEmpty(tag))
 
     override fun JsonObject.toForge() = with(inverted) {
         toForge()
