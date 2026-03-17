@@ -1,0 +1,14 @@
+{
+   "$schema": "https://workflows.somethingcatchy.net/schema/config.json",
+   "type": "minecraft",
+   "loaders": [
+      "fabric",
+      "forge",
+      "neoforge"
+   ],
+   "upload": {
+      "nexus": true
+   },
+   "issueTemplates": false,
+   "sonar": true
+}
