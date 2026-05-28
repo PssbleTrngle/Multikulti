@@ -3,7 +3,6 @@ package com.possible_triangle.multikulti.registrate.platform.service
 import com.possible_triangle.multikulti.registrate.builder.ForgePaintingBuilder
 import com.possible_triangle.multikulti.registrate.builder.ForgeParticleBuilder
 import com.possible_triangle.multikulti.registrate.builder.ForgeSoundBuilder
-import com.possible_triangle.multikulti.registrate.builder.ParticleBuilder
 import com.possible_triangle.multikulti.registrate.platform.ValidationContext
 import com.possible_triangle.multikulti.registrate.provider.RegistrateParticleProvider
 import com.possible_triangle.multikulti.registrate.provider.RegistrateSoundsProvider
@@ -14,8 +13,6 @@ import com.tterrag.registrate.builders.BuilderCallback
 import com.tterrag.registrate.providers.DataProviderInitializer
 import com.tterrag.registrate.providers.ProviderType
 import com.tterrag.registrate.providers.RegistrateTagsProvider
-import net.minecraft.client.particle.ParticleProvider
-import net.minecraft.client.particle.SpriteSet
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleType
 import net.minecraft.core.particles.SimpleParticleType
@@ -23,33 +20,36 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.world.entity.decoration.PaintingVariant
 
 class ForgeRegistrateBuilders : RegistrateBuilders {
-
     companion object {
         @JvmStatic
-        val SOUNDS: ProviderType<RegistrateSoundsProvider> = ProviderType.registerProvider("sounds") {
-            RegistrateSoundsProvider(it.parent, it.output, it.fileHelper)
-        }
+        val SOUNDS: ProviderType<RegistrateSoundsProvider> =
+            ProviderType.registerProvider("sounds") {
+                RegistrateSoundsProvider(it.parent, it.output, it.fileHelper)
+            }
 
         @JvmStatic
-        val PARTICLES: ProviderType<RegistrateParticleProvider> = ProviderType.registerProvider("particles") {
-            RegistrateParticleProvider(it.parent, it.output, it.fileHelper)
-        }
+        val PARTICLES: ProviderType<RegistrateParticleProvider> =
+            ProviderType.registerProvider("particles") {
+                RegistrateParticleProvider(it.parent, it.output, it.fileHelper)
+            }
 
         @JvmStatic
-        val PAINTING_TAGS: ProviderType<RegistrateTagsProvider.IntrinsicImpl<PaintingVariant>> = ProviderType
-            .registerIntrinsicTag("Painting Tags", "tags/painting", Registries.PAINTING_VARIANT, null)
+        val PAINTING_TAGS: ProviderType<RegistrateTagsProvider.IntrinsicImpl<PaintingVariant>> =
+            ProviderType
+                .registerIntrinsicTag("Painting Tags", "tags/painting", Registries.PAINTING_VARIANT, null)
 
         @JvmStatic
-        val VALIDATION: ProviderType<RegistrateValidationProvider> = ProviderType.registerProvider("validation") {
-            RegistrateValidationProvider(it.parent, it.fileHelper)
-        }
+        val VALIDATION: ProviderType<RegistrateValidationProvider> =
+            ProviderType.registerProvider("validation") {
+                RegistrateValidationProvider(it.parent, it.fileHelper)
+            }
     }
 
     override fun <TParent : Any> sound(
         owner: AbstractRegistrate<*>,
         parent: TParent,
         name: String,
-        callback: BuilderCallback
+        callback: BuilderCallback,
     ) = ForgeSoundBuilder(owner, parent, name, callback)
 
     override fun <TOptions : ParticleOptions, TType : ParticleType<TOptions>, TParent : Any> particle(
@@ -71,7 +71,7 @@ class ForgeRegistrateBuilders : RegistrateBuilders {
         owner: AbstractRegistrate<*>,
         parent: TParent,
         name: String,
-        callback: BuilderCallback
+        callback: BuilderCallback,
     ) = ForgePaintingBuilder(owner, parent, name, callback)
 
     override fun registerDependencies(initializer: DataProviderInitializer) {
@@ -81,7 +81,7 @@ class ForgeRegistrateBuilders : RegistrateBuilders {
 
     override fun validate(
         builder: Builder<*, *, *, *>,
-        block: ValidationContext.() -> Unit
+        block: ValidationContext.() -> Unit,
     ) {
         builder.setData(VALIDATION) { context, provider ->
             provider.block()

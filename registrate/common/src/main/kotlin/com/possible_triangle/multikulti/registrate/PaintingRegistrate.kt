@@ -8,8 +8,7 @@ import com.possible_triangle.multikulti.registrate.platform.service.RegistrateBu
 import com.tterrag.registrate.AbstractRegistrate
 
 @JvmOverloads
-fun <T : AbstractRegistrate<out T>> T.painting(name: String = getCurrentName()): PaintingBuilder<T> {
-    return entry(name) { callback ->
+fun <T : AbstractRegistrate<out T>> T.painting(name: String = getCurrentName()): PaintingBuilder<T> =
+    entry(name) { callback ->
         RegistrateBuilders.INSTANCE.painting(this, this, name, callback)
     }
-}

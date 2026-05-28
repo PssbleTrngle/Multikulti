@@ -1,13 +1,13 @@
-val registrate_fabric_version: String by extra
+plugins {
+    id("com.possible-triangle.fabric")
+}
 
 fabric {
-    enableMixins()
-
     dependOn(project(":registrate-common"))
 }
 
 dependencies {
-    modCompileOnly("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")
+    modCompileOnlyApi(libs.registrate.fabric)
 
     implementation(project(":core-common"))
     implementation(project(":core-fabric"))

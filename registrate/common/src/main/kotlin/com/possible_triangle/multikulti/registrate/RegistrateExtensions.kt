@@ -9,12 +9,12 @@ import com.possible_triangle.multikulti.registrate.platform.service.RegistrateBu
 import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.builders.Builder
 
-
 private val AbstractRegistrate<*>.accessor
     get() = this as RegistrateAccessor
 
 fun AbstractRegistrate<*>.getCurrentName(): String = accessor.invokeCurrentName()
 
-fun <T : Builder<*,*,*,*>> T.validate(block: ValidationContext.() -> Unit): T = apply {
-    RegistrateBuilders.INSTANCE.validate(this, block)
-}
+fun <T : Builder<*, *, *, *>> T.validate(block: ValidationContext.() -> Unit): T =
+    apply {
+        RegistrateBuilders.INSTANCE.validate(this, block)
+    }

@@ -19,21 +19,20 @@ class ForgeParticleBuilder<TOptions : ParticleOptions, TType : ParticleType<TOpt
     callback: BuilderCallback,
     factory: () -> TType,
 ) : ParticleBuilder<TOptions, TType, TParent>(owner, parent, name, callback, factory) {
-
     init {
         setData(ForgeRegistrateBuilders.PARTICLES) { context, provider ->
             provider.spriteSet(context.get(), sprites)
         }
     }
 
-    override fun provider(supplier: () -> (SpriteSet) -> ParticleProvider<TOptions>) = apply {
-        RegistrateDistExecutor.unsafeRunWhenOn(Dist.CLIENT) {
-            Runnable {
-                OneTimeEventReceiver.addModListener(owner, RegisterParticleProvidersEvent::class.java) {
-                    it.registerSpriteSet(entry, supplier())
+    override fun provider(supplier: () -> (SpriteSet) -> ParticleProvider<TOptions>) =
+        apply {
+            RegistrateDistExecutor.unsafeRunWhenOn(Dist.CLIENT) {
+                Runnable {
+                    OneTimeEventReceiver.addModListener(owner, RegisterParticleProvidersEvent::class.java) {
+                        it.registerSpriteSet(entry, supplier())
+                    }
                 }
             }
         }
-    }
-
 }

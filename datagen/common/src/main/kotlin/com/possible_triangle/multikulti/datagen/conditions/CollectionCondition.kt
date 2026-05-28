@@ -4,7 +4,6 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
 interface CollectionCondition : Condition {
-
     val conditions: Collection<Condition>
 
     val key: String
@@ -18,11 +17,14 @@ interface CollectionCondition : Condition {
         if (conditions.size == 1) return with(conditions.first()) { toForge() }
 
         addProperty("type", "neoforge:$key")
-        add("values", JsonArray().apply {
-            conditions.forEach {
-                add(it.encodeToForge())
-            }
-        })
+        add(
+            "values",
+            JsonArray().apply {
+                conditions.forEach {
+                    add(it.encodeToForge())
+                }
+            },
+        )
     }
 
     override fun JsonObject.toFabric() {
@@ -30,10 +32,13 @@ interface CollectionCondition : Condition {
         if (conditions.size == 1) return with(conditions.first()) { toFabric() }
 
         addProperty("condition", "fabric:$key")
-        add("values", JsonArray().apply {
-            conditions.forEach {
-                add(it.encodeToFabric())
-            }
-        })
+        add(
+            "values",
+            JsonArray().apply {
+                conditions.forEach {
+                    add(it.encodeToFabric())
+                }
+            },
+        )
     }
 }

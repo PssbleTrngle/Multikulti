@@ -12,9 +12,5 @@ class FabricPaintingBuilder<TParent : Any>(
     name: String,
     callback: BuilderCallback,
 ) : PaintingBuilder<TParent>(owner, parent, name, callback) {
-
-    override fun tag(tag: TagKey<PaintingVariant>): PaintingBuilder<TParent> {
-        return tag(FabricRegistrateBuilders.PAINTING_TAGS, tag)
-    }
-
+    override fun tag(tag: TagKey<PaintingVariant>): PaintingBuilder<TParent> = tag(FabricRegistrateBuilders.PAINTING_TAGS, tag)
 }

@@ -9,14 +9,11 @@ import com.tterrag.registrate.AbstractRegistrate
 import com.tterrag.registrate.builders.Builder
 import com.tterrag.registrate.builders.BuilderCallback
 import com.tterrag.registrate.providers.DataProviderInitializer
-import net.minecraft.client.particle.ParticleProvider
-import net.minecraft.client.particle.SpriteSet
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleType
 import net.minecraft.core.particles.SimpleParticleType
 
 interface RegistrateBuilders {
-
     companion object {
         @JvmField
         val INSTANCE = Services.load(RegistrateBuilders::class.java)
@@ -26,7 +23,7 @@ interface RegistrateBuilders {
         owner: AbstractRegistrate<*>,
         parent: TParent,
         name: String,
-        callback: BuilderCallback
+        callback: BuilderCallback,
     ): SoundBuilder<TParent>
 
     fun <TOptions : ParticleOptions, TType : ParticleType<TOptions>, TParent : Any> particle(
@@ -48,11 +45,13 @@ interface RegistrateBuilders {
         owner: AbstractRegistrate<*>,
         parent: TParent,
         name: String,
-        callback: BuilderCallback
+        callback: BuilderCallback,
     ): PaintingBuilder<TParent>
 
     fun registerDependencies(initializer: DataProviderInitializer)
 
-    fun validate(builder: Builder<*, *, *, *>, block: ValidationContext.() -> Unit)
-
+    fun validate(
+        builder: Builder<*, *, *, *>,
+        block: ValidationContext.() -> Unit,
+    )
 }

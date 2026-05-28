@@ -8,8 +8,7 @@ import com.possible_triangle.multikulti.registrate.platform.service.RegistrateBu
 import com.tterrag.registrate.AbstractRegistrate
 
 @JvmOverloads
-fun <T : AbstractRegistrate<out T>> T.sound(name: String = getCurrentName()): SoundBuilder<T> {
-    return entry(name) { callback ->
+fun <T : AbstractRegistrate<out T>> T.sound(name: String = getCurrentName()): SoundBuilder<T> =
+    entry(name) { callback ->
         RegistrateBuilders.INSTANCE.sound(this, this, name, callback)
     }
-}

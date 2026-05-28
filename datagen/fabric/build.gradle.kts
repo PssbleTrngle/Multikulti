@@ -1,8 +1,8 @@
-val create_fabric_version: String by extra
+plugins {
+    id("com.possible-triangle.fabric")
+}
 
 fabric {
-    enableMixins()
-
     dependOn(project(":datagen-common"))
 }
 

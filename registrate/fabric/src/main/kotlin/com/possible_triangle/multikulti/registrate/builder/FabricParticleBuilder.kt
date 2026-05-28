@@ -18,21 +18,20 @@ class FabricParticleBuilder<TOptions : ParticleOptions, TType : ParticleType<TOp
     callback: BuilderCallback,
     factory: () -> TType,
 ) : ParticleBuilder<TOptions, TType, TParent>(owner, parent, name, callback, factory) {
-
     init {
         setData(FabricRegistrateBuilders.PARTICLES) { context, provider ->
             provider.spriteSet(context.id, sprites)
         }
     }
 
-    override fun provider(supplier: () -> (SpriteSet) -> ParticleProvider<TOptions>) = apply {
-        EnvExecutor.runWhenOn(EnvType.CLIENT) {
-            Runnable {
-                onRegister {
-                    ParticleFactoryRegistry.getInstance().register(it, supplier())
+    override fun provider(supplier: () -> (SpriteSet) -> ParticleProvider<TOptions>) =
+        apply {
+            EnvExecutor.runWhenOn(EnvType.CLIENT) {
+                Runnable {
+                    onRegister {
+                        ParticleFactoryRegistry.getInstance().register(it, supplier())
+                    }
                 }
             }
         }
-    }
-
 }

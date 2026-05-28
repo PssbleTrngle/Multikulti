@@ -1,14 +1,14 @@
-val registrate_neoforge_version: String by extra
+plugins {
+    id("com.possible-triangle.neoforge")
+}
 
 neoforge {
-    enableMixins()
-
     dependOn(project(":registrate-common"))
 }
 
 dependencies {
-    modImplementation("com.tterrag.registrate:Registrate:${registrate_neoforge_version}")
+    modCompileOnlyApi(libs.registrate.neoforge)
 
     implementation(project(":core-common"))
-    modImplementation(project(":core-neoforge")) { isTransitive = false }
+    implementation(project(":core-neoforge")) { isTransitive = false }
 }

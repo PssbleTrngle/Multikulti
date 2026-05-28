@@ -1,29 +1,27 @@
-val mod_id: String by extra
-val mc_version: String by extra
-
 plugins {
-    id("com.possible-triangle.gradle") version ("0.2.18")
+    id("com.possible-triangle.core")
+    id("com.possible-triangle.common") apply false
+    id("com.possible-triangle.neoforge") apply false
+    id("com.possible-triangle.fabric") apply false
 }
 
 withKotlin()
 
-val isSnapshot = env["SNAPSHOT"] == "true"
-if (isSnapshot) {
-    val buildNumber = env["GITHUB_RUN_NUMBER"] ?: "999999"
-    mod {
-        version = "${mc_version}-${buildNumber}-SNAPSHOT"
-    }
-}
-
 subprojects {
+    apply(plugin = "com.possible-triangle.core")
+
     repositories {
-        modrinthMaven()
-        mavenLocal()
+        nexus {
+            content {
+                includeGroup("com.possible-triangle")
+                includeGroup("com.tterrag.registrate_fabric")
+                includeGroup("io.github.fabricators_of_create.Porting-Lib")
+            }
+        }
 
         maven {
-            url = uri("https://mvn.devos.one/snapshots/")
+            url = uri("https://maven.gegy.dev/releases/")
             content {
-                includeGroup("io.github.fabricators_of_create.Porting-Lib")
                 includeGroup("com.tterrag.registrate")
             }
         }
@@ -34,36 +32,16 @@ subprojects {
                 includeGroup("com.simibubi.create")
             }
         }
-
-        maven {
-            url = uri("https://mvn.devos.one/snapshots/")
-            content {
-                includeGroup("com.simibubi.create")
-            }
-        }
-
-        nexus {
-            content {
-                includeGroup("com.tterrag.registrate_fabric")
-            }
-        }
     }
 
-    enablePublishing {
-        nexus(snapshot = isSnapshot)
-        removePomDependencies(groupId = "com.simibubi.create")
+    upload {
+        maven.nexus()
     }
 
     val module = project.projectDir.parentFile.name
     mod {
-        id = "${mod_id}_${module}"
+        id = providers.gradleProperty("mod_id").map { "${it}_$module" }
     }
-}
-
-allprojects {
-    tasks.withType<Test> { enabled = false }
-    tasks.compileTestJava { enabled = false }
-    tasks.named("compileTestKotlin") { enabled = false }
 }
 
 enableSonarQube()

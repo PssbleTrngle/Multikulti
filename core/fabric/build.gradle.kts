@@ -1,8 +1,14 @@
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
-val kotlin_version = getKotlinPluginVersion()
+plugins {
+    id("com.possible-triangle.fabric")
+}
 
 fabric {
     dependOn(project(":core-common"))
-    includesLibrary("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+}
+
+dependencies {
+    val kotlinVersion = getKotlinPluginVersion()
+    apiInclude("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 }

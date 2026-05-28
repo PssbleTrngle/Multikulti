@@ -13,15 +13,17 @@ import net.minecraft.sounds.SoundEvent
 class RegistrateSoundsProvider(
     private val owner: AbstractRegistrate<*>,
     output: PackOutput,
-    helper: ExistingFileHelper
-) : SoundDefinitionsProvider(output, owner.modid, helper), RegistrateProvider {
-
+    helper: ExistingFileHelper,
+) : SoundDefinitionsProvider(output, owner.modid, helper),
+    RegistrateProvider {
     override fun getSide() = EnvType.CLIENT
 
-    public override fun add(sound: SoundEvent, definition: SoundDefinition) = super.add(sound, definition)
+    public override fun add(
+        sound: SoundEvent,
+        definition: SoundDefinition,
+    ) = super.add(sound, definition)
 
     override fun registerSounds() {
         owner.genData(FabricRegistrateBuilders.SOUNDS, this)
     }
-
 }

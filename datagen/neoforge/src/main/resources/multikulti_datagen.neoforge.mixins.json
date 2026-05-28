@@ -12,6 +12,5 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "refmap": "${mod_id}.refmap.json",
   "plugin": "com.possible_triangle.multikulti.datagen.MultikultiDatagenMixinPlugin"
 }

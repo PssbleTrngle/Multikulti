@@ -20,12 +20,12 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.world.entity.decoration.PaintingVariant
 
 class FabricRegistrateBuilders : RegistrateBuilders {
-
     companion object {
         @JvmStatic
-        val SOUNDS: ProviderType<RegistrateSoundsProvider> = ProviderType.registerProvider("sounds") {
-            RegistrateSoundsProvider(it.parent, it.output, it.fileHelper)
-        }
+        val SOUNDS: ProviderType<RegistrateSoundsProvider> =
+            ProviderType.registerProvider("sounds") {
+                RegistrateSoundsProvider(it.parent, it.output, it.fileHelper)
+            }
 
         @JvmStatic
         val PARTICLES: ProviderType<RegistrateParticleProvider> =
@@ -34,19 +34,21 @@ class FabricRegistrateBuilders : RegistrateBuilders {
             }
 
         @JvmStatic
-        val PAINTING_TAGS: ProviderType<RegistrateTagsProvider.IntrinsicImpl<PaintingVariant>> = ProviderType
-            .registerIntrinsicTag("Painting Tags", "tags/painting", Registries.PAINTING_VARIANT, null)
+        val PAINTING_TAGS: ProviderType<RegistrateTagsProvider.IntrinsicImpl<PaintingVariant>> =
+            ProviderType
+                .registerIntrinsicTag("Painting Tags", "tags/painting", Registries.PAINTING_VARIANT, null)
 
-        val VALIDATION: ProviderType<RegistrateValidationProvider> = ProviderType.registerProvider("validation") {
-            RegistrateValidationProvider(it.parent, it.fileHelper)
-        }
+        val VALIDATION: ProviderType<RegistrateValidationProvider> =
+            ProviderType.registerProvider("validation") {
+                RegistrateValidationProvider(it.parent, it.fileHelper)
+            }
     }
 
     override fun <TParent : Any> sound(
         owner: AbstractRegistrate<*>,
         parent: TParent,
         name: String,
-        callback: BuilderCallback
+        callback: BuilderCallback,
     ) = FabricSoundBuilder(owner, parent, name, callback)
 
     override fun <TOptions : ParticleOptions, TType : ParticleType<TOptions>, TParent : Any> particle(
@@ -68,7 +70,7 @@ class FabricRegistrateBuilders : RegistrateBuilders {
         owner: AbstractRegistrate<*>,
         parent: TParent,
         name: String,
-        callback: BuilderCallback
+        callback: BuilderCallback,
     ) = FabricPaintingBuilder(owner, parent, name, callback)
 
     override fun registerDependencies(initializer: DataProviderInitializer) {
@@ -78,7 +80,7 @@ class FabricRegistrateBuilders : RegistrateBuilders {
 
     override fun validate(
         builder: Builder<*, *, *, *>,
-        block: ValidationContext.() -> Unit
+        block: ValidationContext.() -> Unit,
     ) {
         builder.setData(VALIDATION) { context, provider ->
             provider.block()

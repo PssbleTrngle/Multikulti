@@ -1,15 +1,14 @@
-val mc_version: String by extra
-val create_neoforge_version: String by extra
+plugins {
+    id("com.possible-triangle.neoforge")
+}
 
 neoforge {
-    enableMixins()
-
     dependOn(project(":datagen-common"))
 }
 
 dependencies {
     implementation(project(":core-common"))
-    modImplementation(project(":core-neoforge")) { isTransitive = false }
+    implementation(project(":core-neoforge")) { isTransitive = false }
 
-    modImplementation("com.simibubi.create:create-${mc_version}:${create_neoforge_version}:slim") { isTransitive = false }
+    modImplementation(variantOf(libs.create.neoforge) { classifier("slim") }) { isTransitive = false }
 }

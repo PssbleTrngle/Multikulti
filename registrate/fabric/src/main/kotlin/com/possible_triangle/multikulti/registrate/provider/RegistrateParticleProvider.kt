@@ -17,9 +17,9 @@ import java.util.concurrent.CompletableFuture
 class RegistrateParticleProvider(
     private val owner: AbstractRegistrate<*>,
     output: PackOutput,
-    private val helper: ExistingFileHelper
-) : DataProvider, RegistrateProvider {
-
+    private val helper: ExistingFileHelper,
+) : DataProvider,
+    RegistrateProvider {
     private val pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "particles")
 
     override fun getSide() = EnvType.CLIENT
@@ -31,17 +31,24 @@ class RegistrateParticleProvider(
     override fun run(cachedOutput: CachedOutput): CompletableFuture<*> {
         owner.genData(FabricRegistrateBuilders.PARTICLES, this)
 
-        return CompletableFuture.allOf(*entries.map { (id, textures) ->
-            val json = JsonObject().apply {
-                val array = JsonArray()
-                textures.map { it.toString() }.forEach(array::add)
-                add("textures", array)
-            }
-            DataProvider.saveStable(cachedOutput, json, pathProvider.json(id))
-        }.toTypedArray())
+        return CompletableFuture.allOf(
+            *entries
+                .map { (id, textures) ->
+                    val json =
+                        JsonObject().apply {
+                            val array = JsonArray()
+                            textures.map { it.toString() }.forEach(array::add)
+                            add("textures", array)
+                        }
+                    DataProvider.saveStable(cachedOutput, json, pathProvider.json(id))
+                }.toTypedArray(),
+        )
     }
 
-    fun spriteSet(id: ResourceLocation, textures: Collection<ResourceLocation>) {
+    fun spriteSet(
+        id: ResourceLocation,
+        textures: Collection<ResourceLocation>,
+    ) {
         textures.forEach {
             check(helper.exists(it, PackType.CLIENT_RESOURCES, ".png", "textures/particle")) {
                 "Texture '$it' does not exist in any known resource pack"
@@ -52,5 +59,4 @@ class RegistrateParticleProvider(
             "The particle type '$id' already has a description associated with it"
         }
     }
-
 }

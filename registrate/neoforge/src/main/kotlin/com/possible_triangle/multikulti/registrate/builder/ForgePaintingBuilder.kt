@@ -10,11 +10,7 @@ class ForgePaintingBuilder<TParent : Any>(
     owner: AbstractRegistrate<*>,
     parent: TParent,
     name: String,
-    callback: BuilderCallback
+    callback: BuilderCallback,
 ) : PaintingBuilder<TParent>(owner, parent, name, callback) {
-
-    override fun tag(tag: TagKey<PaintingVariant>): PaintingBuilder<TParent> {
-        return tag(ForgeRegistrateBuilders.PAINTING_TAGS, tag)
-    }
-
+    override fun tag(tag: TagKey<PaintingVariant>): PaintingBuilder<TParent> = tag(ForgeRegistrateBuilders.PAINTING_TAGS, tag)
 }

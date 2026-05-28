@@ -9,20 +9,20 @@ class ForgeSoundBuilder<TParent : Any>(
     owner: AbstractRegistrate<*>,
     parent: TParent,
     name: String,
-    callback: BuilderCallback
+    callback: BuilderCallback,
 ) : SoundBuilder<TParent>(owner, parent, name, callback) {
-
     init {
         setData(ForgeRegistrateBuilders.SOUNDS) { context, provider ->
             val definition = SoundDefinition.definition()
             subtitleKey?.let(definition::subtitle)
             sounds.forEach {
                 definition.with(
-                    SoundDefinition.Sound.sound(it.id, SoundDefinition.SoundType.SOUND)
+                    SoundDefinition.Sound
+                        .sound(it.id, SoundDefinition.SoundType.SOUND)
                         .stream(it.stream ?: stream)
                         .volume(it.volume)
                         .pitch(it.pitch)
-                        .weight(it.weight)
+                        .weight(it.weight),
                 )
             }
 
@@ -31,6 +31,8 @@ class ForgeSoundBuilder<TParent : Any>(
     }
 
     // TODO check if this can be in super class
-    override fun lang(key: String, translation: String): SoundBuilder<TParent> = lang({ key }, translation)
-
+    override fun lang(
+        key: String,
+        translation: String,
+    ): SoundBuilder<TParent> = lang({ key }, translation)
 }

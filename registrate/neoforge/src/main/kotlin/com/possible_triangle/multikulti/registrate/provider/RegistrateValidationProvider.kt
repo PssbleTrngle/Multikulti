@@ -14,9 +14,10 @@ import java.util.concurrent.CompletableFuture
 
 class RegistrateValidationProvider(
     private val owner: AbstractRegistrate<*>,
-    val fileHelper: ExistingFileHelper
-) : DataProvider, RegistrateProvider, ValidationContext {
-
+    val fileHelper: ExistingFileHelper,
+) : DataProvider,
+    RegistrateProvider,
+    ValidationContext {
     override fun run(output: CachedOutput): CompletableFuture<*> {
         owner.genData(ForgeRegistrateBuilders.VALIDATION, this)
 
@@ -31,7 +32,6 @@ class RegistrateValidationProvider(
         loc: ResourceLocation,
         packType: PackType,
         pathSuffix: String,
-        pathPrefix: String
+        pathPrefix: String,
     ) = fileHelper.exists(loc, packType, pathSuffix, pathPrefix)
-
 }

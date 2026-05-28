@@ -11,15 +11,14 @@ abstract class SoundBuilder<TParent : Any>(
     owner: AbstractRegistrate<*>,
     parent: TParent,
     name: String,
-    callback: BuilderCallback
+    callback: BuilderCallback,
 ) : AbstractBuilder<SoundEvent, SoundEvent, TParent, SoundBuilder<TParent>>(
-    owner,
-    parent,
-    name,
-    callback,
-    Registries.SOUND_EVENT
-) {
-
+        owner,
+        parent,
+        name,
+        callback,
+        Registries.SOUND_EVENT,
+    ) {
     protected var subtitleKey: String? = null
         private set
 
@@ -27,7 +26,10 @@ abstract class SoundBuilder<TParent : Any>(
 
     protected var stream = false
 
-    abstract fun lang(key: String, translation: String): SoundBuilder<TParent>
+    abstract fun lang(
+        key: String,
+        translation: String,
+    ): SoundBuilder<TParent>
 
     fun lang(translation: String): SoundBuilder<TParent> {
         if (subtitleKey == null) subtitleKey = "subtitle.$name"
@@ -41,22 +43,25 @@ abstract class SoundBuilder<TParent : Any>(
         volume: Float = 1.0F,
         pitch: Float = 1.0F,
         stream: Boolean? = null,
-    ): SoundBuilder<TParent> = apply {
-        sounds.add(Entry(sound, weight, volume, pitch, stream))
-    }
+    ): SoundBuilder<TParent> =
+        apply {
+            sounds.add(Entry(sound, weight, volume, pitch, stream))
+        }
 
-    fun with(vararg sounds: ResourceLocation): SoundBuilder<TParent> = apply {
-        sounds.forEach { with(it, 1) }
-    }
+    fun with(vararg sounds: ResourceLocation): SoundBuilder<TParent> =
+        apply {
+            sounds.forEach { with(it, 1) }
+        }
 
     fun with(vararg sounds: String): SoundBuilder<TParent> {
         val ids = sounds.map { ResourceLocation.fromNamespaceAndPath(owner.modid, it) }
         return with(*ids.toTypedArray())
     }
 
-    fun stream() = apply {
-        stream = true
-    }
+    fun stream() =
+        apply {
+            stream = true
+        }
 
     override fun createEntry(): SoundEvent {
         check(sounds.isNotEmpty()) {
@@ -71,7 +76,6 @@ abstract class SoundBuilder<TParent : Any>(
         val weight: Int,
         val volume: Float,
         val pitch: Float,
-        val stream: Boolean?
+        val stream: Boolean?,
     )
-
 }

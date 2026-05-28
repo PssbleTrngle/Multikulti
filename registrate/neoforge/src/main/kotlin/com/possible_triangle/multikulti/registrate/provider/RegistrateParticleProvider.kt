@@ -13,15 +13,17 @@ import net.neoforged.neoforge.common.data.ParticleDescriptionProvider
 class RegistrateParticleProvider(
     private val owner: AbstractRegistrate<*>,
     output: PackOutput,
-    helper: ExistingFileHelper
-) : ParticleDescriptionProvider(output, helper), RegistrateProvider {
-
+    helper: ExistingFileHelper,
+) : ParticleDescriptionProvider(output, helper),
+    RegistrateProvider {
     override fun getSide() = LogicalSide.CLIENT
 
     override fun addDescriptions() {
         owner.genData(ForgeRegistrateBuilders.PARTICLES, this)
     }
 
-    fun spriteSet(type: ParticleType<*>, textures: Collection<ResourceLocation>) = super.spriteSet(type, textures)
-
+    fun spriteSet(
+        type: ParticleType<*>,
+        textures: Collection<ResourceLocation>,
+    ) = super.spriteSet(type, textures)
 }

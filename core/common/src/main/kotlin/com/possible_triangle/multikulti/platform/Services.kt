@@ -4,7 +4,6 @@ import com.possible_triangle.multikulti.platform.service.IPlatformHelper
 import java.util.*
 
 object Services {
-
     @JvmField
     val PLATFORM = load(IPlatformHelper::class.java)
 
@@ -15,10 +14,8 @@ object Services {
     }
 
     @JvmStatic
-    fun <T> load(clazz: Class<T>): T {
-        return loadOptional(clazz).orElseThrow {
+    fun <T> load(clazz: Class<T>): T =
+        loadOptional(clazz).orElseThrow {
             NullPointerException("Failed to load service for ${clazz.name}")
         }
-    }
-
 }

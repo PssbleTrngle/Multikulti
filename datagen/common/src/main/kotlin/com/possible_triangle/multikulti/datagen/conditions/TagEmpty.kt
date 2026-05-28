@@ -5,8 +5,9 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 
-data class TagEmpty(val tag: ResourceLocation) : Condition {
-
+data class TagEmpty(
+    val tag: ResourceLocation,
+) : Condition {
     constructor(tag: TagKey<Item>) : this(tag.location())
 
     private val inverted get() = Inverted(TagPopulated(tag))
@@ -16,8 +17,8 @@ data class TagEmpty(val tag: ResourceLocation) : Condition {
         addProperty("tag", tag.toString())
     }
 
-    override fun JsonObject.toFabric() = with(inverted) {
-        toFabric()
-    }
-
+    override fun JsonObject.toFabric() =
+        with(inverted) {
+            toFabric()
+        }
 }

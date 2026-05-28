@@ -10,7 +10,7 @@ private fun Any.warnNotConditional() {
 private val STUB = ConditionalHolderStub()
 
 interface Conditional {
-
+    @Suppress("ktlint:standard:function-naming")
     fun `multikulti$conditions`(): IConditionHolder
 
     companion object {
@@ -22,21 +22,36 @@ interface Conditional {
         }
 
         @JvmStatic
-        fun <T : Any> with(value: T, vararg conditions: Condition): T = with(value, conditions.toList())
+        fun <T : Any> with(
+            value: T,
+            vararg conditions: Condition,
+        ): T = with(value, conditions.toList())
 
         @JvmStatic
-        fun <T : Any> with(value: T, conditions: Collection<Condition>): T = value.apply {
-            if (conditions.isNotEmpty()) of(value).add(conditions)
-        }
+        fun <T : Any> with(
+            value: T,
+            conditions: Collection<Condition>,
+        ): T =
+            value.apply {
+                if (conditions.isNotEmpty()) of(value).add(conditions)
+            }
 
         @JvmStatic
-        fun <T : Any> with(value: T, vararg conditions: Condition, block: Runnable): T =
-            with(value, conditions.toList(), block)
+        fun <T : Any> with(
+            value: T,
+            vararg conditions: Condition,
+            block: Runnable,
+        ): T = with(value, conditions.toList(), block)
 
         @JvmStatic
-        fun <T : Any> with(value: T, conditions: Collection<Condition>, block: Runnable): T = value.apply {
-            of(this).with(conditions.toList(), block::run)
-        }
+        fun <T : Any> with(
+            value: T,
+            conditions: Collection<Condition>,
+            block: Runnable,
+        ): T =
+            value.apply {
+                of(this).with(conditions.toList(), block::run)
+            }
 
         @JvmStatic
         fun merge(vararg values: Any): IReadOnlyConditionHolder {
@@ -44,11 +59,11 @@ interface Conditional {
             return holders.reduce { a, b -> a.merge(b) }
         }
     }
-
 }
 
-fun <T : Any> T.`when`(vararg conditions: Condition): T =
-    Conditional.with(this, *conditions)
+fun <T : Any> T.`when`(vararg conditions: Condition): T = Conditional.with(this, *conditions)
 
-fun <T : Any> T.withConditions(vararg conditions: Condition, block: () -> Unit): T =
-    Conditional.with(this, conditions.toList(), block)
+fun <T : Any> T.withConditions(
+    vararg conditions: Condition,
+    block: () -> Unit,
+): T = Conditional.with(this, conditions.toList(), block)
