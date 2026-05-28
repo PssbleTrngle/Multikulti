@@ -34,13 +34,16 @@ subprojects {
         }
     }
 
-    upload {
-        maven.nexus()
-    }
-
     val module = project.projectDir.parentFile.name
-    mod {
-        id = providers.gradleProperty("mod_id").map { "${it}_$module" }
+    val baseId = providers.gradleProperty("mod_id")
+    mod.id = baseId.map { "${it}_$module" }
+    base.archivesName = baseId.map { "$it-${project.name}-${mod.version.get()}" }
+
+    upload {
+        maven {
+            name = baseId.map { "$it-${project.name}" }
+            nexus()
+        }
     }
 }
 

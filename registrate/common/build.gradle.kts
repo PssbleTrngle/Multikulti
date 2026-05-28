@@ -7,6 +7,6 @@ common {
 }
 
 dependencies {
-    modCompileOnly(libs.neoforge.stub)
-    modCompileOnly(libs.registrate.fabric)
+    modCompileOnlyApi(libs.neoforge.stub)
+    modCompileOnly(libs.registrate.neoforge)
 }

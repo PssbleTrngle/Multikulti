@@ -2,8 +2,8 @@ package com.possible_triangle.multikulti.datagen.forge.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.possibl_triangle.multikulti.datagen.forge.NeoforgeConditionExtender;
 import com.possible_triangle.multikulti.datagen.conditions.Conditional;
+import com.possible_triangle.multikulti.datagen.forge.NeoforgeConditionExtender;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.HolderLookup;

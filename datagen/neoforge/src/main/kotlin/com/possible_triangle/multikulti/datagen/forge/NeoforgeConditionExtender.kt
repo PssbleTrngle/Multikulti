@@ -1,4 +1,4 @@
-package com.possibl_triangle.multikulti.datagen.forge
+package com.possible_triangle.multikulti.datagen.forge
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
