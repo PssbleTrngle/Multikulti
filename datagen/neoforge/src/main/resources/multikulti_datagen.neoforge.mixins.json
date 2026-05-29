@@ -4,10 +4,11 @@
   "package": "com.possible_triangle.multikulti.datagen.forge.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "RecipeProviderMixin",
+    "ConditionalMixin",
+    "DataProviderMixin",
     "LootTableProviderMixin",
     "ProcessingRecipeBuilderMixin",
-    "ConditionalMixin"
+    "RecipeProviderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

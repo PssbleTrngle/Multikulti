@@ -1,8 +1,11 @@
+@file:JvmName("Logging")
+
 package com.possible_triangle.multikulti.platform
 
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
+@JvmField
 val LOGGER: Logger = LogManager.getLogger("Multikulti")
 
 fun Logger.dev(

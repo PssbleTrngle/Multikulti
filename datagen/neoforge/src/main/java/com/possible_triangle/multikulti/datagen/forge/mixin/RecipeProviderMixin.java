@@ -14,14 +14,15 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(value = RecipeProvider.class, remap = false)
 public class RecipeProviderMixin {
 
     @WrapOperation(
-            method = "run(Lnet/minecraft/data/CachedOutput;Lnet/minecraft/core/HolderLookup$Provider;)Ljava/util/concurrent/CompletableFuture;",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/data/recipes/RecipeProvider;buildRecipes(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/core/HolderLookup$Provider;)V")
+        method = "run(Lnet/minecraft/data/CachedOutput;Lnet/minecraft/core/HolderLookup$Provider;)Ljava/util/concurrent/CompletableFuture;",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/data/recipes/RecipeProvider;buildRecipes(Lnet/minecraft/data/recipes/RecipeOutput;Lnet/minecraft/core/HolderLookup$Provider;)V")
     )
     private void serializeConditions(RecipeProvider instance, RecipeOutput output, HolderLookup.Provider provider, Operation<Void> original) {
         original.call(instance, new RecipeOutput() {
@@ -32,9 +33,19 @@ public class RecipeProviderMixin {
 
             @Override
             public void accept(ResourceLocation id, Recipe<?> recipe, @Nullable AdvancementHolder advancementHolder, ICondition... conditions) {
-                output.accept(id, recipe, advancementHolder, NeoforgeConditionExtender.extend(Conditional.merge(recipe, instance), conditions));
+                output.accept(id, recipe, copyConditions(recipe, advancementHolder), NeoforgeConditionExtender.extend(Conditional.merge(recipe, instance), conditions));
             }
         }, provider);
+    }
+
+    @Unique
+    private static AdvancementHolder copyConditions(Recipe<?> from, @Nullable AdvancementHolder to) {
+        if (to == null) return to;
+        var conditions = Conditional.of(from).get();
+        if (conditions.isEmpty()) return to;
+
+        var advancement = Conditional.with(to.value(), conditions);
+        return new AdvancementHolder(to.id(), advancement);
     }
 
 }
