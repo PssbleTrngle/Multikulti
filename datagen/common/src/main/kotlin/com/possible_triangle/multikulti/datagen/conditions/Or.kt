@@ -4,4 +4,6 @@ data class Or(
     override val conditions: Collection<Condition>,
 ) : CollectionCondition {
     override val key = "or"
+
+    constructor(vararg conditions: Condition) : this(conditions.asList())
 }

@@ -1,0 +1,7 @@
+{
+  "condition": "fabric:any_mods_loaded",
+  "values": [
+    "test-mod",
+    "another-mod"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:not",
+  "value": {
+    "type": "neoforge:true"
+  }
+}

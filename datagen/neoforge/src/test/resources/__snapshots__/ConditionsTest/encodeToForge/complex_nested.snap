@@ -1,0 +1,27 @@
+{
+  "type": "neoforge:and",
+  "values": [
+    {
+      "type": "neoforge:true"
+    },
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:true"
+        },
+        {
+          "type": "neoforge:and",
+          "values": [
+            {
+              "type": "neoforge:false"
+            },
+            {
+              "type": "neoforge:false"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "condition": "fabric:not",
+  "value": {
+    "condition": "fabric:tags_populated",
+    "values": [
+      "minecraft:iron_ores"
+    ]
+  }
+}

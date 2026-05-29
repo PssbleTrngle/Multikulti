@@ -1,3 +1,5 @@
+@file:JvmName("Conditions")
+
 package com.possible_triangle.multikulti.datagen.conditions
 
 import com.google.gson.JsonObject

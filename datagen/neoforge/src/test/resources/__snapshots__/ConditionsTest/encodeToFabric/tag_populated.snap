@@ -1,0 +1,6 @@
+{
+  "condition": "fabric:tags_populated",
+  "values": [
+    "minecraft:copper_ores"
+  ]
+}

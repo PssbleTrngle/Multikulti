@@ -1,0 +1,6 @@
+{
+  "condition": "fabric:not",
+  "value": {
+    "condition": "fabric:true"
+  }
+}

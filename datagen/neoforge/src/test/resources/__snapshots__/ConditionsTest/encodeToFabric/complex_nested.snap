@@ -1,0 +1,33 @@
+{
+  "condition": "fabric:and",
+  "values": [
+    {
+      "condition": "fabric:true"
+    },
+    {
+      "condition": "fabric:or",
+      "values": [
+        {
+          "condition": "fabric:true"
+        },
+        {
+          "condition": "fabric:and",
+          "values": [
+            {
+              "condition": "fabric:not",
+              "value": {
+                "condition": "fabric:true"
+              }
+            },
+            {
+              "condition": "fabric:not",
+              "value": {
+                "condition": "fabric:true"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
