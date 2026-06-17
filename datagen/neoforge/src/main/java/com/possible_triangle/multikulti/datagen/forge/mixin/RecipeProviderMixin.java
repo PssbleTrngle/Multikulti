@@ -3,6 +3,7 @@ package com.possible_triangle.multikulti.datagen.forge.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.possible_triangle.multikulti.datagen.conditions.Conditional;
+import com.possible_triangle.multikulti.datagen.conditions.IConditionHolder;
 import com.possible_triangle.multikulti.datagen.forge.NeoforgeConditionExtender;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -32,16 +33,18 @@ public class RecipeProviderMixin {
             }
 
             @Override
-            public void accept(ResourceLocation id, Recipe<?> recipe, @Nullable AdvancementHolder advancementHolder, ICondition... conditions) {
-                output.accept(id, recipe, copyConditions(recipe, advancementHolder), NeoforgeConditionExtender.extend(Conditional.merge(recipe, instance), conditions));
+            public void accept(ResourceLocation id, Recipe<?> recipe, @Nullable AdvancementHolder advancementHolder, ICondition... forgeConditions) {
+                var conditional = Conditional.of(recipe);
+                conditional.add(Conditional.of(instance).get());
+                output.accept(id, recipe, copyConditions(conditional, advancementHolder), NeoforgeConditionExtender.extend(conditional, forgeConditions));
             }
         }, provider);
     }
 
     @Unique
-    private static AdvancementHolder copyConditions(Recipe<?> from, @Nullable AdvancementHolder to) {
-        if (to == null) return to;
-        var conditions = Conditional.of(from).get();
+    private static AdvancementHolder copyConditions(IConditionHolder from, @Nullable AdvancementHolder to) {
+        if (to == null) return null;
+        var conditions = from.get();
         if (conditions.isEmpty()) return to;
 
         var advancement = Conditional.with(to.value(), conditions);
