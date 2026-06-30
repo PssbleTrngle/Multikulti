@@ -10,7 +10,7 @@ neoforge {
 
 dependencies {
     implementation(project(":core-common"))
-    implementation(project(":core-neoforge")) { isTransitive = false }
+    api(project(":core-neoforge")) { isTransitive = false }
 
     modCompileOnly(variantOf(libs.create.neoforge) { classifier("slim") }) { isTransitive = false }
 

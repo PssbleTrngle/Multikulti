@@ -10,5 +10,5 @@ dependencies {
     modCompileOnlyApi(libs.registrate.neoforge)
 
     implementation(project(":core-common"))
-    implementation(project(":core-neoforge")) { isTransitive = false }
+    api(project(":core-neoforge")) { isTransitive = false }
 }

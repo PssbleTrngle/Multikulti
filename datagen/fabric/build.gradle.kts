@@ -8,5 +8,5 @@ fabric {
 
 dependencies {
     implementation(project(":core-common"))
-    implementation(project(":core-fabric"))
+    api(project(":core-fabric"))
 }
