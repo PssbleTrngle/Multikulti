@@ -33,31 +33,30 @@ interface IReadOnlyConditionHolder {
 
     fun encode(json: JsonObject?) =
         json?.apply {
-            if (MultikultiDatagenConfig.INSTANCE.targets.contains(Loader.FABRIC)) {
-                encodeFabric()
-            }
-
-            if (MultikultiDatagenConfig.INSTANCE.targets.contains(Loader.FORGE)) {
-                encodeForge()
-            }
+            encodeFabric()
+            encodeForge()
         }
 
     fun JsonObject.encodeFabric() {
-        appendAt(
-            "fabric:load_conditions",
-            get().map { condition ->
-                condition.encodeToFabric()
-            },
-        )
+        if (MultikultiDatagenConfig.INSTANCE.targets.contains(Loader.FABRIC)) {
+            appendAt(
+                "fabric:load_conditions",
+                get().map { condition ->
+                    condition.encodeToFabric()
+                },
+            )
+        }
     }
 
     fun JsonObject.encodeForge() {
-        appendAt(
-            "neoforge:conditions",
-            get().map { condition ->
-                condition.encodeToForge()
-            },
-        )
+        if (MultikultiDatagenConfig.INSTANCE.targets.contains(Loader.FORGE)) {
+            appendAt(
+                "neoforge:conditions",
+                get().map { condition ->
+                    condition.encodeToForge()
+                },
+            )
+        }
     }
 }
 
