@@ -41,7 +41,7 @@ subprojects {
 
     upload {
         maven {
-            name = baseId.map { "$it-${project.name}" }
+            name = baseId.map { "$it-${mod.minecraftVersion.get()}-${project.name}" }
             nexus()
         }
     }
