@@ -1,55 +1,26 @@
 package com.possible_triangle.multikulti.datagen
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonSyntaxException
-import java.io.File
-import java.nio.file.Files
+import com.possible_triangle.multikulti.Loader
+import com.possible_triangle.multikulti.platform.Services
 
-data class MultikultiDatagenConfig(
-    val targets: Collection<Loader>,
-) {
-    enum class Loader {
-        FORGE,
-        FABRIC,
-    }
-
-    companion object {
-        private val DEFAULT =
-            MultikultiDatagenConfig(
-                targets = Loader.entries,
-            )
-
-        private val GSON: Gson =
-            GsonBuilder()
-                .setPrettyPrinting()
-                .setLenient()
-                .create()
-
-        val INSTANCE by lazy { load() }
-
-        private fun getFile(): File {
-            val configFolder = File("config")
-            Files.createDirectories(configFolder.toPath())
-            return configFolder.resolve("multikulti-datagen.json")
-        }
-
-        private fun createDefault(): MultikultiDatagenConfig = DEFAULT.apply { save() }
-
-        private fun load(): MultikultiDatagenConfig {
-            val file = getFile()
-            if (!file.exists()) return createDefault()
-            return try {
-                GSON.fromJson(file.readText(), MultikultiDatagenConfig::class.java)
-            } catch (ex: JsonSyntaxException) {
-                createDefault()
+object MultikultiDatagenConfig {
+    private val loaders by lazy {
+        val property = System.getProperty("multikulti.datagen.loaders")
+        property
+            .split(",")
+            .map { it.trim() }
+            .mapNotNull {
+                try {
+                    Loader.valueOf(it)
+                } catch (_: IllegalArgumentException) {
+                    null
+                }
+            }.ifEmpty {
+                listOf(
+                    Services.PLATFORM.loader,
+                )
             }
-        }
-
-        private fun MultikultiDatagenConfig.save() {
-            val file = getFile()
-            val json = GSON.toJson(this)
-            file.writeText(json)
-        }
     }
+
+    fun isEnabled(loader: Loader) = loaders.contains(loader)
 }

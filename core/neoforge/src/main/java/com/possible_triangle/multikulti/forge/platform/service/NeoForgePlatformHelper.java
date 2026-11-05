@@ -1,10 +1,16 @@
 package com.possible_triangle.multikulti.forge.platform.service;
 
+import com.possible_triangle.multikulti.Loader;
 import com.possible_triangle.multikulti.platform.service.IPlatformHelper;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 
 public class NeoForgePlatformHelper implements IPlatformHelper {
+
+    @Override
+    public Loader getLoader() {
+        return Loader.NEOFORGE;
+    }
 
     @Override
     public boolean isDev() {
@@ -15,5 +21,4 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     public boolean isModLoaded(String modId) {
         return ModList.get().isLoaded(modId);
     }
-
 }

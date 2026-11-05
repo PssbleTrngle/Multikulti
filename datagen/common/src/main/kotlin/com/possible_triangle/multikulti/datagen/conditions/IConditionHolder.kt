@@ -3,8 +3,8 @@ package com.possible_triangle.multikulti.datagen.conditions
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.possible_triangle.multikulti.Loader
 import com.possible_triangle.multikulti.datagen.MultikultiDatagenConfig
-import com.possible_triangle.multikulti.datagen.MultikultiDatagenConfig.Loader
 import kotlin.collections.Collection
 import kotlin.collections.forEach
 import kotlin.collections.hashSetOf
@@ -38,7 +38,7 @@ interface IReadOnlyConditionHolder {
         }
 
     fun JsonObject.encodeFabric() {
-        if (MultikultiDatagenConfig.INSTANCE.targets.contains(Loader.FABRIC)) {
+        if (MultikultiDatagenConfig.isEnabled(Loader.FABRIC)) {
             appendAt(
                 "fabric:load_conditions",
                 get().map { condition ->
@@ -49,7 +49,7 @@ interface IReadOnlyConditionHolder {
     }
 
     fun JsonObject.encodeForge() {
-        if (MultikultiDatagenConfig.INSTANCE.targets.contains(Loader.FORGE)) {
+        if (MultikultiDatagenConfig.isEnabled(Loader.NEOFORGE)) {
             appendAt(
                 "neoforge:conditions",
                 get().map { condition ->

@@ -1,7 +1,7 @@
 package com.possible_triangle.multikulti.datagen.conditions
 
-import com.possible_triangle.multikulti.platform.LOGGER
-import com.possible_triangle.multikulti.platform.dev
+import com.possible_triangle.multikulti.LOGGER
+import com.possible_triangle.multikulti.dev
 
 private fun Any.warnNotConditional() {
     LOGGER.dev("trying to access condition of a non-conditional {}", javaClass.name)
