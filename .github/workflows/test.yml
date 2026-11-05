@@ -1,8 +1,8 @@
 # <meta>
 #    <source>@pssbletrngle/github-meta-generator</source>
-#    <version>1.0.124</version>
-#    <timestamp>2026-10-16T13:35:51.712Z</timestamp>
-#    <hash>c7f18ccc61d939c7</hash>
+#    <version>1.0.127</version>
+#    <timestamp>2026-11-05T14:57:28.944Z</timestamp>
+#    <hash>a97cb0c6ae207909</hash>
 # </meta>
 
 name: Test
@@ -53,49 +53,5 @@ jobs:
           cache-read-only: ${{ github.event_name != 'push' }}
           dependency-graph: generate-and-submit
 
-      - name: Cache SonarQube packages
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: actions/cache@v6
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-
-      - uses: PssbleTrngle/find-release@v1
-        if: ${{ github.event_name != 'pull_request' }}
-        id: draft
-        with:
-          type: draft
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Test
         run: ./gradlew build check --stacktrace
-        env:
-          RELEASE_VERSION: ${{ steps.action.outputs.tag }}
-
-      - name: Analyze
-        if: ${{ github.event_name != 'pull_request' }}
-        run: ./gradlew sonar
-        continue-on-error: true
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          GITHUB_DEPENDENCY_GRAPH_ENABLED: false
-
-      - name: Publish -SNAPSHOT version
-        if: ${{ github.event_name != 'pull_request' && fromJSON(steps.draft.outputs.matched) }}
-        run: ./gradlew upload
-        continue-on-error: true
-        env:
-          NEXUS_USER: ${{ secrets.NEXUS_USER }}
-          NEXUS_TOKEN: ${{ secrets.NEXUS_TOKEN }}
-          RELEASE_VERSION: ${{ steps.draft.outputs.tag }}
-          SNAPSHOT: true
-
-      - name: Publish Release Metadata
-        if: ${{ github.event_name != 'pull_request' && fromJSON(steps.draft.outputs.matched) }}
-        uses: actions/upload-artifact@v7
-        with:
-          archive: false
-          path: build/release.json
-          retention-days: 1
