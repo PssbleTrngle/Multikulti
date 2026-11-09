@@ -14,6 +14,8 @@ private val AbstractRegistrate<*>.accessor
 
 fun AbstractRegistrate<*>.getCurrentName(): String = accessor.invokeCurrentName()
 
+val AbstractRegistrate<*>.defaultCreativeModeTab get() = accessor.defaultCreativeModeTab
+
 fun <T : Builder<*, *, *, *>> T.validate(block: ValidationContext.() -> Unit): T =
     apply {
         RegistrateBuilders.INSTANCE.validate(this, block)
